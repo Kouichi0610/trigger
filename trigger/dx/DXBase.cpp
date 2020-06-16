@@ -16,13 +16,13 @@
 #include "factory/Fence.h"
 
 #include "Polygon.h"
+#include "renderer/SamplePolygon.h"
 
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
 
 namespace dx {
-
 	void DXBase::Main() {
 		auto idx = swapChain->GetCurrentBackBufferIndex();
 		auto backBuffer = renderTargets[idx];
@@ -60,7 +60,8 @@ namespace dx {
 		commandList->RSSetViewports(1, &viewport);
 		commandList->RSSetScissorRects(1, &scissorrect);
 
-		polygon->Render(commandList);
+		//polygon->Render(commandList);
+		model->Render(commandList);
 
 		// リソースバリアをもとに戻す
 		{
@@ -147,6 +148,17 @@ namespace dx {
 		scissorrect.bottom = scissorrect.top + height;
 
 		polygon = std::make_shared<Polygon>(this->device, logger);
+
+		// SamplePolygon内でやるべきだが
+		ModelInfo info;
+		info.IndicesSize = 6;
+		info.VerticesSize = 4;
+		info.VertexShaderFile = L"BasicVertexShader.hlsl";
+		info.VertexShaderEntry = "BasicVS";
+		info.PixelShaderFile = L"BasicPixelShader.hlsl";
+		info.PixelShaderEntry = "BasicPS";
+		model = std::make_shared<SamplePolygon>();
+		model->Init(device.Get(), info, logger);
 	}
 	void DXBase::Terminate() {
 		fence = nullptr;

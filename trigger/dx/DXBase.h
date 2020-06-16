@@ -9,6 +9,7 @@
 namespace dx {
 	using Microsoft::WRL::ComPtr;
 
+	class ModelBase;
 	class Polygon;
 
 	class DXBase {
@@ -45,6 +46,8 @@ namespace dx {
 		const UINT FrameBufferCount = 2;
 
 		std::shared_ptr<Polygon> polygon;
+
+		std::shared_ptr<ModelBase> model;
 	};
 
 }

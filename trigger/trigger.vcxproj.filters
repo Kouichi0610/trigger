@@ -62,6 +62,12 @@
     <ClCompile Include="dx\factory\PipelineState.cpp">
       <Filter>dx\factory</Filter>
     </ClCompile>
+    <ClCompile Include="dx\renderer\ModelBase.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\SamplePolygon.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logger">
@@ -75,6 +81,9 @@
     </Filter>
     <Filter Include="dx\factory">
       <UniqueIdentifier>{134b8745-ff3a-49c6-bd51-41fc8fca1afe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\renderer">
+      <UniqueIdentifier>{94634b28-dc26-47e4-ade8-e08cc8f18f7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="dx\factory\PipelineState.h">
       <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\ModelBase.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\SamplePolygon.h">
+      <Filter>dx\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

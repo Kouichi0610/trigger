@@ -5,6 +5,7 @@ namespace dx::factory {
 		return pipelineState;
 	}
 
+	// TODO:Factory任せにしない abstract createPipeline
 	PipelineState::PipelineState(
 		ComPtr<ID3D12Device> device,
 		ComPtr<ID3D12RootSignature> rootSignature,
@@ -12,13 +13,15 @@ namespace dx::factory {
 		ComPtr<ID3DBlob> pixelShader,
 		std::shared_ptr<logger::ILogger> logger) {
 
+#if false
+		D3D12_INPUT_ELEMENT_DESC descInputElements[] = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+			{ "COLOR",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+		}; 
+#endif
+
 		D3D12_INPUT_ELEMENT_DESC inputLayouts[] = {
-			{
-				"POSITION", 0,
-				DXGI_FORMAT_R32G32B32_FLOAT, 0,
-				D3D12_APPEND_ALIGNED_ELEMENT,
-				D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0,
-			},
+			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
 		};
 		// グラフィックスパイプラインの設定
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipeline = {};

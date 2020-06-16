@@ -9,6 +9,14 @@
 using namespace DirectX;
 
 namespace dx {
+	Polygon::Vertex vertices[] = {
+		{{-0.4f,-0.7f, 0.0f}, {0.0f, 1.0f}},
+		{{-0.4f, 0.7f, 0.0f}, {0.0f, 0.0f}},
+		{{ 0.4f,-0.7f, 0.0f}, {1.0f, 1.0f}},
+		{{ 0.4f, 0.7f, 0.0f}, {1.0f, 0.0f}},
+
+	};
+#if false
 	// 頂点は時計回りにすること
 	XMFLOAT3 vertices[] = {
 		{-0.4f,-0.7f,0.0f} ,//左下
@@ -16,17 +24,24 @@ namespace dx {
 		{0.4f,-0.7f,0.0f} ,//右下
 		{0.4f,0.7f,0.0f} ,//右上
 	};
+#endif
 	unsigned short indices[] = { 0,1,2, 2,1,3 };
 
+	/*
+		基底クラスModel
+
+		各種インスタンス
+		Render
+	
+	*/
 	void Polygon::Render(ComPtr<ID3D12GraphicsCommandList> commandList) {
 		// パイプラインステートを設定
 		commandList->SetPipelineState(pipelineState.Get());
 		// ルートシグネチャ(TODO:SetComputeRootSignatureとの違い)
 		commandList->SetGraphicsRootSignature(rootSignature.Get());
 
+		
 		// プリミティブトポロジ(頂点の描画方法)
-		auto topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-		//topology = D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP;
 		commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		commandList->IASetVertexBuffers(0, 1, &vbView);	// スロット番号、頂点バッファビューの数、vbView
 		commandList->IASetIndexBuffer(&ibView);
@@ -36,6 +51,28 @@ namespace dx {
 		// 頂点数、インスタンス数、頂点データオフセット、インスタンスオフセット
 		// インスタンス数 プリミティブ表示数
 		commandList->DrawIndexedInstanced(6, 1, 0, 0, 0);
+
+		printf("a %d %d\n", vbView.SizeInBytes, ibView.SizeInBytes);
+#if false
+		// 後から書き直しても有効
+		cnt++;
+		if (cnt == 60) {
+			XMFLOAT3 v2[] = {
+				{-0.6f,-0.7f,0.0f} ,//左下
+				{-0.6f,0.7f,0.0f} ,//左上
+				{0.6f,-0.7f,0.0f} ,//右下
+				{0.6f,0.7f,0.0f} ,//右上
+			};
+
+			XMFLOAT3* map = nullptr;
+			auto result = vertexBuffer->Map(0, nullptr, (void**)&map);
+
+			std::copy(std::begin(v2), std::end(v2), map);
+
+			// 頂点を渡したので解放する
+			vertexBuffer->Unmap(0, nullptr);
+		}
+#endif
 	}
 
 	Polygon::Polygon(ComPtr<ID3D12Device> device, std::shared_ptr<logger::ILogger> logger) {
@@ -60,7 +97,7 @@ namespace dx {
 		MapIndices(logger);
 	}
 	void Polygon::MapVertex(std::shared_ptr<logger::ILogger> logger) {
-		XMFLOAT3* map = nullptr;
+		Vertex* map = nullptr;
 		auto result = vertexBuffer->Map(0, nullptr, (void**)&map);
 		logger->CheckError(result, "MapVertex");
 

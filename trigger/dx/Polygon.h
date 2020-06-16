@@ -5,12 +5,21 @@
 #include <memory>
 #include <vector>
 #include "../logger/ILogger.h"
+#include <DirectXMath.h>
 
+using namespace DirectX;
 namespace dx {
 	using Microsoft::WRL::ComPtr;
 
+	/// <summary>
+	/// ポリゴン描画試作
+	/// </summary>
 	class Polygon {
 	public:
+		struct Vertex {
+			XMFLOAT3 pos;
+			XMFLOAT2 uv;
+		};
 		void Render(ComPtr<ID3D12GraphicsCommandList>);
 
 		Polygon(ComPtr<ID3D12Device>, std::shared_ptr<logger::ILogger>);
@@ -25,6 +34,7 @@ namespace dx {
 		ComPtr<ID3DBlob> pixelShader;
 
 		ComPtr<ID3D12RootSignature> rootSignature;
+		// 違うパラメータを設定したい場合、作り直す
 		ComPtr<ID3D12PipelineState> pipelineState;
 
 		D3D12_INDEX_BUFFER_VIEW ibView;

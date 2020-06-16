@@ -161,6 +161,8 @@
     <ClCompile Include="dx\factory\SwapChain.cpp" />
     <ClCompile Include="dx\factory\ComittedResource.cpp" />
     <ClCompile Include="dx\Polygon.cpp" />
+    <ClCompile Include="dx\renderer\ModelBase.cpp" />
+    <ClCompile Include="dx\renderer\SamplePolygon.cpp" />
     <ClCompile Include="logger\components\Logger.cpp" />
     <ClCompile Include="logger\LoggerFactory.cpp" />
     <ClCompile Include="main.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="dx\factory\SwapChain.h" />
     <ClInclude Include="dx\factory\ComittedResource.h" />
     <ClInclude Include="dx\Polygon.h" />
+    <ClInclude Include="dx\renderer\ModelBase.h" />
+    <ClInclude Include="dx\renderer\SamplePolygon.h" />
     <ClInclude Include="logger\components\Logger.h" />
     <ClInclude Include="logger\ILogger.h" />
     <ClInclude Include="logger\LoggerFactory.h" />
