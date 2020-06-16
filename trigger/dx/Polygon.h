@@ -1,0 +1,36 @@
+#pragma once
+#include <d3d12.h>
+#include <dxgi1_6.h>
+#include <wrl.h>
+#include <memory>
+#include <vector>
+#include "../logger/ILogger.h"
+
+namespace dx {
+	using Microsoft::WRL::ComPtr;
+
+	class Polygon {
+	public:
+		void Render(ComPtr<ID3D12GraphicsCommandList>);
+
+		Polygon(ComPtr<ID3D12Device>, std::shared_ptr<logger::ILogger>);
+		Polygon(const Polygon&) = delete;
+	private:
+
+		ComPtr<ID3D12Resource> vertexBuffer;
+		ComPtr<ID3D12Resource> indicesBuffer;
+		ComPtr<ID3D12Resource> constantBuffer;
+
+		ComPtr<ID3DBlob> vertexShader;
+		ComPtr<ID3DBlob> pixelShader;
+
+		ComPtr<ID3D12RootSignature> rootSignature;
+		ComPtr<ID3D12PipelineState> pipelineState;
+
+		D3D12_INDEX_BUFFER_VIEW ibView;
+		D3D12_VERTEX_BUFFER_VIEW vbView;
+
+		void MapVertex(std::shared_ptr<logger::ILogger>);
+		void MapIndices(std::shared_ptr<logger::ILogger>);
+	};
+}

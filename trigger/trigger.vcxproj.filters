@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="logger\components\Logger.cpp">
+      <Filter>logger\components</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\LoggerFactory.cpp">
+      <Filter>logger</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\DXBase.cpp">
+      <Filter>dx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\Factory.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\Device.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\CommandQueue.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\SwapChain.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\CommandList.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\CommandAllocator.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\RenderTargets.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\HeapRtv.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\Fence.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\HeapDsv.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\DepthBuffer.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\ComittedResource.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\Polygon.cpp">
+      <Filter>dx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\PixelShader.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\VertexShader.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\RootSignature.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\factory\PipelineState.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="logger">
+      <UniqueIdentifier>{93bcd34f-0b61-41f5-9e7e-fd95526b3136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logger\components">
+      <UniqueIdentifier>{eab28d0a-2d4d-4f16-b167-1bcb332f0d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx">
+      <UniqueIdentifier>{24c7f285-97ee-4919-af45-6b910f0a07b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\factory">
+      <UniqueIdentifier>{134b8745-ff3a-49c6-bd51-41fc8fca1afe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="logger\ILogger.h">
+      <Filter>logger</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\components\Logger.h">
+      <Filter>logger\components</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\LoggerFactory.h">
+      <Filter>logger</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\DXBase.h">
+      <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\Device.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\Factory.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\CommandQueue.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\SwapChain.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\CommandAllocator.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\CommandList.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\RenderTargets.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\HeapRtv.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\Fence.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\HeapDsv.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\DepthBuffer.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\ComittedResource.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\Polygon.h">
+      <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\PixelShader.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\VertexShader.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\RootSignature.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\factory\PipelineState.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="BasicVertexShader.hlsl" />
+    <FxCompile Include="BasicPixelShader.hlsl" />
+  </ItemGroup>
+</Project>
