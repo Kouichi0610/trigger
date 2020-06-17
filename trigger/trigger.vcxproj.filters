@@ -47,9 +47,6 @@
     <ClCompile Include="dx\factory\ComittedResource.cpp">
       <Filter>dx\factory</Filter>
     </ClCompile>
-    <ClCompile Include="dx\Polygon.cpp">
-      <Filter>dx</Filter>
-    </ClCompile>
     <ClCompile Include="dx\factory\PixelShader.cpp">
       <Filter>dx\factory</Filter>
     </ClCompile>
@@ -66,6 +63,9 @@
       <Filter>dx\renderer</Filter>
     </ClCompile>
     <ClCompile Include="dx\renderer\SamplePolygon.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\Polygon.cpp">
       <Filter>dx\renderer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -135,9 +135,6 @@
     <ClInclude Include="dx\factory\ComittedResource.h">
       <Filter>dx\factory</Filter>
     </ClInclude>
-    <ClInclude Include="dx\Polygon.h">
-      <Filter>dx</Filter>
-    </ClInclude>
     <ClInclude Include="dx\factory\PixelShader.h">
       <Filter>dx\factory</Filter>
     </ClInclude>
@@ -154,6 +151,12 @@
       <Filter>dx\renderer</Filter>
     </ClInclude>
     <ClInclude Include="dx\renderer\SamplePolygon.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\ModelInfo.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\Polygon.h">
       <Filter>dx\renderer</Filter>
     </ClInclude>
   </ItemGroup>

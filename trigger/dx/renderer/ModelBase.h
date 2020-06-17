@@ -12,6 +12,7 @@ using namespace DirectX;
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
+	struct ModelInfo;
 
 	enum class Topology : unsigned int {
 		PointList = D3D_PRIMITIVE_TOPOLOGY_POINTLIST,
@@ -20,21 +21,13 @@ namespace dx {
 		TriangleList = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 		TriangleStrip = D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
 	};
-	struct ModelInfo {
-		LPCWSTR VertexShaderFile;
-		std::string VertexShaderEntry;
-		LPCWSTR PixelShaderFile;
-		std::string PixelShaderEntry;
-		UINT64 VerticesSize;
-		UINT64 IndicesSize;
-	};
 
 	class ModelBase {
 	public:
 		virtual void Render(ComPtr<ID3D12GraphicsCommandList>) = 0;
 
 		ModelBase();
-		virtual void Init(ComPtr<ID3D12Device>, const ModelInfo&, std::shared_ptr<logger::ILogger>);
+		virtual void Init(const ModelInfo&);
 		virtual ~ModelBase() = default;
 		ModelBase(const ModelBase&) = delete;
 	protected:
@@ -56,16 +49,14 @@ namespace dx {
 		D3D12_INDEX_BUFFER_VIEW ibView;
 		D3D12_VERTEX_BUFFER_VIEW vbView;
 		
-		void mapVertex(std::vector<XMFLOAT3> vertices);
-		//template <typename T>
-		//void mapVertex(std::vector<T> vertices);
+		template <typename T>
+		void mapVertex(std::vector<T> vertices);
 		void mapIndices(std::vector<unsigned short>);
 		void mapIndices(std::vector<unsigned int>);
 
 		std::shared_ptr<logger::ILogger> logger;
 	};
 
-#if false
 	template <typename T>
 	void ModelBase::mapVertex(std::vector<T> vertices) {
 		T* map = nullptr;
@@ -79,8 +70,7 @@ namespace dx {
 
 		// 頂点バッファビュー
 		vbView.BufferLocation = vertexBuffer->GetGPUVirtualAddress();
-		vbView.SizeInBytes = sizeof(vertices);
+		vbView.SizeInBytes = sizeof(vertices[0]) * vertices.size();
 		vbView.StrideInBytes = sizeof(vertices[0]);
 	}
-#endif
 }

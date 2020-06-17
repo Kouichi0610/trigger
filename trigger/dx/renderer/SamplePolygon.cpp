@@ -16,8 +16,8 @@ namespace dx {
 	SamplePolygon::SamplePolygon() {
 	}
 
-	void SamplePolygon::Init(ComPtr<ID3D12Device> device, const ModelInfo& info, std::shared_ptr<logger::ILogger> logger) {
-		ModelBase::Init(device, info, logger);
+	void SamplePolygon::Init(const ModelInfo& info) {
+		ModelBase::Init(info);
 		// í∏ì_ÇÕéûåvâÒÇËÇ…Ç∑ÇÈÇ±Ç∆
 		std::vector<XMFLOAT3> vertices = {
 			{-0.4f,-0.7f,0.0f} ,//ç∂â∫

@@ -3,6 +3,9 @@
 #include "dx/DXBase.h"
 #include "logger/LoggerFactory.h"
 
+#include "dx/renderer/ModelInfo.h"
+#include "dx/renderer/Polygon.h"
+
 LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
 	// ウィンドウ破棄時に呼ばれる
@@ -46,6 +49,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	auto logger = logger::LoggerFactory().Logger();
 	auto dx = dx::DXBase(logger);
 	dx.Initialize(hwnd);
+
+	{
+		std::vector<dx::Polygon::Vertex> vertices = {
+			{{-0.4f,-0.7f, 0.0f}, {0.0f, 1.0f}},
+			{{-0.4f, 0.7f, 0.0f}, {0.0f, 0.0f}},
+			{{ 0.4f,-0.7f, 0.0f}, {1.0f, 1.0f}},
+			{{ 0.4f, 0.7f, 0.0f}, {1.0f, 0.0f}},
+
+		};
+		std::vector<unsigned short> indices = { 0,1,2, 2,1,3 };
+
+		auto info = dx.CreateModelInfo();
+		info->IndicesSize = indices.size();
+		info->VerticesSize = vertices.size();
+		info->VertexShaderFile = L"BasicVertexShader.hlsl";
+		info->VertexShaderEntry = "BasicVS";
+		info->PixelShaderFile = L"BasicPixelShader.hlsl";
+		info->PixelShaderEntry = "BasicPS";
+
+		auto polygon = std::make_shared<dx::Polygon>();
+		polygon->Init(*info, vertices, indices);
+		dx.Entry(polygon);
+	}
 
 	ShowWindow(hwnd, SW_SHOW);
 

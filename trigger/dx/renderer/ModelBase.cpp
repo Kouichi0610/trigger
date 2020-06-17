@@ -1,4 +1,5 @@
 #include "ModelBase.h"
+#include "ModelInfo.h"
 #include "../factory/ComittedResource.h"
 #include "../factory/VertexShader.h"
 #include "../factory/PixelShader.h"
@@ -20,27 +21,11 @@ namespace dx {
 		commandList->IASetVertexBuffers(0, 1, &vbView);	// スロット番号、頂点バッファビューの数、vbView
 		commandList->IASetIndexBuffer(&ibView);
 
-		printf("t %d %d\n", vbView.SizeInBytes, ibView.SizeInBytes);
 		// TODO:indexBuffer
 		// 描画命令(TODO:引数詳細)
 		// 頂点数、インスタンス数、頂点データオフセット、インスタンスオフセット
 		// インスタンス数 プリミティブ表示数
 		commandList->DrawIndexedInstanced(indicesCount, 1, 0, 0, 0);
-	}
-	void ModelBase::mapVertex(std::vector<XMFLOAT3> vertices) {
-		XMFLOAT3* map = nullptr;
-		auto result = vertexBuffer->Map(0, nullptr, (void**)&map);
-		logger->CheckError(result, "MapVertex");
-
-		std::copy(std::begin(vertices), std::end(vertices), map);
-
-		// 頂点を渡したので解放する
-		vertexBuffer->Unmap(0, nullptr);
-
-		// 頂点バッファビュー
-		vbView.BufferLocation = vertexBuffer->GetGPUVirtualAddress();
-		vbView.SizeInBytes = sizeof(vertices[0]) * vertices.size();
-		vbView.StrideInBytes = sizeof(vertices[0]);
 	}
 
 	void ModelBase::mapIndices(std::vector<unsigned short> indices) {
@@ -66,9 +51,9 @@ namespace dx {
 		ibView.SizeInBytes = sizeof(indices);
 	}
 
-	void ModelBase::Init(ComPtr<ID3D12Device> device, const ModelInfo& info, std::shared_ptr<logger::ILogger> logger) {
-		this->logger = logger;
-		ModelInfo m;
+	void ModelBase::Init(const ModelInfo& info) {
+		this->logger = info.GetLogger();
+		auto device = info.GetDevice();
 		auto vb = factory::ComittedResource(device, info.VerticesSize, logger);
 		auto ib = factory::ComittedResource(device, info.IndicesSize, logger);
 		auto vs = factory::VertexShader(info.VertexShaderFile, info.VertexShaderEntry, logger);

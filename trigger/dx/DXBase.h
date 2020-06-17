@@ -5,20 +5,22 @@
 #include <memory>
 #include <vector>
 #include "../logger/ILogger.h"
+#include "renderer/ModelInfo.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
 
 	class ModelBase;
-	class Polygon;
 
 	class DXBase {
 	public:
 		void Initialize(HWND hwnd);
 		void Terminate();
 
-		void Main();
+		std::shared_ptr<ModelInfo> CreateModelInfo() const;
+		void Entry(std::shared_ptr<ModelBase>);
 
+		void Main();
 
 		DXBase(std::shared_ptr<logger::ILogger>);
 		virtual ~DXBase();
@@ -45,9 +47,7 @@ namespace dx {
 		std::shared_ptr<logger::ILogger> logger;
 		const UINT FrameBufferCount = 2;
 
-		std::shared_ptr<Polygon> polygon;
-
-		std::shared_ptr<ModelBase> model;
+		std::vector<std::shared_ptr<ModelBase>> models;
 	};
 
 }

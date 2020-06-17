@@ -15,7 +15,7 @@
 #include "factory/RenderTargets.h"
 #include "factory/Fence.h"
 
-#include "Polygon.h"
+#include "renderer/ModelInfo.h"
 #include "renderer/SamplePolygon.h"
 
 #pragma comment(lib,"d3d12.lib")
@@ -60,8 +60,9 @@ namespace dx {
 		commandList->RSSetViewports(1, &viewport);
 		commandList->RSSetScissorRects(1, &scissorrect);
 
-		//polygon->Render(commandList);
-		model->Render(commandList);
+		for (const auto model : models) {
+			model->Render(commandList);
+		}
 
 		// リソースバリアをもとに戻す
 		{
@@ -146,19 +147,6 @@ namespace dx {
 		scissorrect.left = 0;
 		scissorrect.right = scissorrect.left + width;
 		scissorrect.bottom = scissorrect.top + height;
-
-		polygon = std::make_shared<Polygon>(this->device, logger);
-
-		// SamplePolygon内でやるべきだが
-		ModelInfo info;
-		info.IndicesSize = 6;
-		info.VerticesSize = 4;
-		info.VertexShaderFile = L"BasicVertexShader.hlsl";
-		info.VertexShaderEntry = "BasicVS";
-		info.PixelShaderFile = L"BasicPixelShader.hlsl";
-		info.PixelShaderEntry = "BasicPS";
-		model = std::make_shared<SamplePolygon>();
-		model->Init(device.Get(), info, logger);
 	}
 	void DXBase::Terminate() {
 		fence = nullptr;
@@ -180,5 +168,12 @@ namespace dx {
 	}
 	DXBase::~DXBase() {
 		Terminate();
+	}
+
+	std::shared_ptr<ModelInfo> DXBase::CreateModelInfo() const {
+		return std::make_shared<ModelInfo>(device, logger);
+	}
+	void DXBase::Entry(std::shared_ptr<ModelBase> model) {
+		models.emplace_back(model);
 	}
 }
