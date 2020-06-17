@@ -1,3 +1,5 @@
+#include "BasicShaderHeader.hlsli"
+
 /*
 	1頂点ごとに呼ばれる
 	pos 頂点データ
@@ -8,15 +10,9 @@
 	　エントリポイント名を BasicVS (この関数名)に変更
 	3.シェーダーモデルをShader Model5.0以降に変更する
 */
-// SV_POSITION returnがどう扱われるか
-struct Output {
-	float4 pos:POSITION;
-	float4 svpos:SV_POSITION;
-};
-
-Output BasicVS(float4 pos : POSITION) {
+Output BasicVS(float4 pos : POSITION, float2 uv: TEXCOORD) {
 	Output output;
-	output.pos = pos;
 	output.svpos = pos;
+	output.uv = uv;
 	return output;
 }
