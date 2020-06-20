@@ -15,8 +15,8 @@
 #include "factory/RenderTargets.h"
 #include "factory/Fence.h"
 
-#include "renderer/ModelInfo.h"
-#include "renderer/SamplePolygon.h"
+#include "renderer/IModel.h"
+#include "renderer/ModelFactory.h"
 
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
@@ -170,10 +170,12 @@ namespace dx {
 		Terminate();
 	}
 
-	std::shared_ptr<ModelInfo> DXBase::CreateModelInfo() const {
-		return std::make_shared<ModelInfo>(device, logger);
-	}
-	void DXBase::Entry(std::shared_ptr<ModelBase> model) {
+	void DXBase::Entry(std::shared_ptr<IModel> model) {
 		models.emplace_back(model);
 	}
+
+	std::unique_ptr<ModelFactory> DXBase::CreateModelFactory() const {
+		return std::make_unique<ModelFactory>(device);
+	}
+
 }

@@ -1,7 +1,7 @@
 #include "VertexShader.h"
 #include <d3dcompiler.h>
 
-namespace dx::factory {
+namespace dx {
 	ComPtr<ID3DBlob> VertexShader::Get() const {
 		return shader;
 	}

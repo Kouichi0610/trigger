@@ -1,7 +1,7 @@
 #include "PixelShader.h"
 #include <d3dcompiler.h>
 
-namespace dx::factory {
+namespace dx {
 	ComPtr<ID3DBlob> PixelShader::Get() const {
 		return shader;
 	}

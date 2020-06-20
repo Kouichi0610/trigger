@@ -8,20 +8,19 @@
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
-	class Device;
 
 	/// <summary>
-	/// Depth Stencil View
+	/// Shader Resource View
+	/// 用のディスクリプタヒープ
 	/// </summary>
-	class HeapDsv final {
+	class HeapSrv final {
 	public:
 		ComPtr<ID3D12DescriptorHeap> Get() const;
-		HeapDsv(const Device&, std::shared_ptr<logger::ILogger>);
+		HeapSrv(ComPtr<ID3D12Device>, std::shared_ptr<logger::ILogger>);
 
-		virtual ~HeapDsv() = default;
-		HeapDsv(const HeapDsv&) = delete;
+		virtual ~HeapSrv() = default;
+		HeapSrv(const HeapSrv&) = delete;
 	private:
-		ComPtr<ID3D12DescriptorHeap> heapDsv;
+		ComPtr<ID3D12DescriptorHeap> heapSrv;
 	};
 }
-

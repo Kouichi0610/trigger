@@ -4,7 +4,7 @@
 #include <wrl.h>
 #include <memory>
 #include "../../logger/ILogger.h"
-
+																				
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
 	class Device;

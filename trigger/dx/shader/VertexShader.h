@@ -7,7 +7,7 @@
 #include <string>
 #include "../../logger/ILogger.h"
 
-namespace dx::factory {
+namespace dx {
 	using Microsoft::WRL::ComPtr;
 
 	class VertexShader final {

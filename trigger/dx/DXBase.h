@@ -5,20 +5,21 @@
 #include <memory>
 #include <vector>
 #include "../logger/ILogger.h"
-#include "renderer/ModelInfo.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
 
 	class ModelBase;
+	class ModelFactory;
+	class IModel;
 
 	class DXBase {
 	public:
 		void Initialize(HWND hwnd);
 		void Terminate();
 
-		std::shared_ptr<ModelInfo> CreateModelInfo() const;
-		void Entry(std::shared_ptr<ModelBase>);
+		std::unique_ptr<ModelFactory> CreateModelFactory() const;
+		void Entry(std::shared_ptr<IModel>);
 
 		void Main();
 
@@ -47,7 +48,7 @@ namespace dx {
 		std::shared_ptr<logger::ILogger> logger;
 		const UINT FrameBufferCount = 2;
 
-		std::vector<std::shared_ptr<ModelBase>> models;
+		std::vector<std::shared_ptr<IModel>> models;
 	};
 
 }

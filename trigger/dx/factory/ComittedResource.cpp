@@ -13,7 +13,7 @@ namespace dx::factory {
 		prop.VisibleNodeMask = 0;
 
 		auto desc = D3D12_RESOURCE_DESC{};
-		desc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+		desc.Dimension =	 D3D12_RESOURCE_DIMENSION_BUFFER;
 		desc.Width = size;
 		desc.Height = 1;
 		desc.DepthOrArraySize = 1;

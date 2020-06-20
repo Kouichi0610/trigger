@@ -1,13 +1,8 @@
 #include "BasicShaderHeader.hlsli"
-
-// SV_TARGET レンダーターゲットに描きこむための
-struct Input {
-	float4 pos:POSITION;
-	float4 svpos:SV_POSITION;
-};
+Texture2D<float4> tex : register(t0);
+SamplerState smp : register(s0);
 
 float4 BasicPS(Output input) : SV_TARGET{
-	return float4(input.uv, 1, 1);
-	//return float4(1, 0, 0, 0.5f);
-	//return float4((float2(0,1) + input.pos.xy) * 0.5f, 1, 1);
+	//return float4(1, input.uv, 1);
+	return float4(tex.Sample(smp, input.uv));
 }
