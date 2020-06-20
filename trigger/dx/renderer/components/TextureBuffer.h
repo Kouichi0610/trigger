@@ -11,11 +11,14 @@ namespace dx {
 	class TextureBuffer final {
 	public:
 		ComPtr<ID3D12Resource> Get() const;
+		DXGI_FORMAT Format() const;
+		TextureBuffer(ComPtr<ID3D12Device>, const wchar_t* path);
 		TextureBuffer(ComPtr<ID3D12Device>, std::vector<TexRGBA>, int w, int h);
 
 		virtual ~TextureBuffer() = default;
 		TextureBuffer(const TextureBuffer&) = delete;
 	private:
 		ComPtr<ID3D12Resource> textureBuffer;
+		DXGI_FORMAT format;
 	};
 }

@@ -89,7 +89,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		auto vs = std::make_shared <dx::VertexShader>(L"BasicVertexShader.hlsl", "BasicVS", logger);
 		auto ps = std::make_shared <dx::PixelShader>(L"BasicPixelShader.hlsl", "BasicPS", logger);
 
-		auto polygon = modelFactory->Create(vertices, indices, texturedata, 256, 256, vs, ps);
+		auto polygon = modelFactory->Create(vertices, indices, L"./Resource/test.png", vs, ps);
 		dx.Entry(polygon);
 	}
 

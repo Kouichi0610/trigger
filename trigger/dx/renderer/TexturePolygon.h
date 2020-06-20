@@ -24,7 +24,7 @@ namespace dx {
 
 	class TexturePolygon : public IModel {
 	public:
-		TexturePolygon(ComPtr<ID3D12Device>, std::vector<TextureVertex>, std::vector<unsigned short>, std::vector<TexRGBA> texture, int w, int h,  std::shared_ptr<VertexShader>, std::shared_ptr<PixelShader>);
+		TexturePolygon(ComPtr<ID3D12Device>, std::vector<TextureVertex>, std::vector<unsigned short>, const wchar_t*,  std::shared_ptr<VertexShader>, std::shared_ptr<PixelShader>);
 
 		virtual void Render(ComPtr<ID3D12GraphicsCommandList>);
 

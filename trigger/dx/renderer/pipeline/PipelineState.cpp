@@ -70,7 +70,5 @@ namespace dx {
 		// グラフィックスパイプラインステートオブジェクトの作成
 		auto result = device->CreateGraphicsPipelineState(
 			&pipeline, IID_PPV_ARGS(&pipelineState));
-
-		printf("pp:%x\n", result);
 	}
 }

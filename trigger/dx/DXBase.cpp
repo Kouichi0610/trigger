@@ -21,6 +21,7 @@
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"DirectXTex.lib")
 
 namespace dx {
 	void DXBase::Main() {
@@ -107,6 +108,9 @@ namespace dx {
 	}
 
 	void DXBase::Initialize(HWND hwnd) {
+		// DirectXTexŠÖ˜A‚Ì‚½‚ß‚É•K—v
+		auto result = CoInitializeEx(0, COINIT_MULTITHREADED);
+
 		auto factory = factory::Factory(logger);
 		auto device = factory::Device(logger);
 		auto commandQueue = factory::CommandQueue(device, logger);
