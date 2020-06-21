@@ -4,7 +4,6 @@
 #include <wrl.h>
 #include <vector>
 #include <memory>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -18,7 +17,7 @@ namespace dx::factory {
 	class RenderTargets final {
 	public:
 		std::vector<ComPtr<ID3D12Resource>> Get() const;
-		RenderTargets(const Device&, const SwapChain&, const HeapRtv&, UINT, std::shared_ptr<logger::ILogger>);
+		RenderTargets(const Device&, const SwapChain&, const HeapRtv&, UINT);
 
 		virtual ~RenderTargets() = default;
 		RenderTargets(const RenderTargets&) = delete;

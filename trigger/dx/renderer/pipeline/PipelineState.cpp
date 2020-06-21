@@ -1,4 +1,5 @@
 #include "PipelineState.h"
+#include "../../../logger/Logger.h"
 
 namespace dx {
 	ComPtr<ID3D12PipelineState> PipelineState::Get() const {
@@ -70,5 +71,6 @@ namespace dx {
 		// グラフィックスパイプラインステートオブジェクトの作成
 		auto result = device->CreateGraphicsPipelineState(
 			&pipeline, IID_PPV_ARGS(&pipelineState));
+		logger::CheckError(result, "Create PipelineState");
 	}
 }

@@ -1,4 +1,5 @@
 #include "IndexBuffer.h"
+#include "../../../logger/Logger.h"
 
 namespace dx {
 	IndexBuffer::IndexBuffer(ComPtr<ID3D12Device> device, std::vector<unsigned short> indices) {
@@ -31,6 +32,7 @@ namespace dx {
 			nullptr,
 			IID_PPV_ARGS(&indexBuffer)
 		);
+		logger::CheckError(result, "CreateIndexBuffer");
 
 		{
 			unsigned short* map = nullptr;

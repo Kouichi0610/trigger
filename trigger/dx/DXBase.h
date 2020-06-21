@@ -4,7 +4,6 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
-#include "../logger/ILogger.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
@@ -12,18 +11,20 @@ namespace dx {
 	class ModelBase;
 	class ModelFactory;
 	class IModel;
+	class Texture;
 
 	class DXBase {
 	public:
 		void Initialize(HWND hwnd);
 		void Terminate();
 
+		std::unique_ptr<Texture> CreateTexture() const;
 		std::unique_ptr<ModelFactory> CreateModelFactory() const;
 		void Entry(std::shared_ptr<IModel>);
 
 		void Main();
 
-		DXBase(std::shared_ptr<logger::ILogger>);
+		DXBase();
 		virtual ~DXBase();
 	private:
 		ComPtr<IDXGIFactory6> factory;
@@ -45,7 +46,6 @@ namespace dx {
 		D3D12_VIEWPORT viewport;
 		D3D12_RECT scissorrect;
 
-		std::shared_ptr<logger::ILogger> logger;
 		const UINT FrameBufferCount = 2;
 
 		std::vector<std::shared_ptr<IModel>> models;

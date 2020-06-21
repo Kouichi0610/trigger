@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "../../logger/ILogger.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
@@ -13,7 +12,7 @@ namespace dx {
 	class VertexShader final {
 	public:
 		ComPtr<ID3DBlob> Get() const;
-		VertexShader(LPCWSTR, std::string, std::shared_ptr<logger::ILogger>);
+		VertexShader(LPCWSTR, std::string);
 
 		virtual ~VertexShader() = default;
 		VertexShader(const VertexShader&) = delete;

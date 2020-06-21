@@ -4,7 +4,6 @@
 #include <wrl.h>
 #include <vector>
 #include <memory>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -16,7 +15,7 @@ namespace dx::factory {
 	class HeapSrv final {
 	public:
 		ComPtr<ID3D12DescriptorHeap> Get() const;
-		HeapSrv(ComPtr<ID3D12Device>, std::shared_ptr<logger::ILogger>);
+		HeapSrv(ComPtr<ID3D12Device>);
 
 		virtual ~HeapSrv() = default;
 		HeapSrv(const HeapSrv&) = delete;

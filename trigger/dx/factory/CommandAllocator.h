@@ -4,7 +4,6 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -21,7 +20,7 @@ namespace dx::factory {
 	class CommandAllocator final {
 	public:
 		std::vector<ComPtr<ID3D12CommandAllocator>> Get() const;
-		CommandAllocator(const Device&, UINT, std::shared_ptr<logger::ILogger>);
+		CommandAllocator(const Device&, UINT);
 
 		virtual ~CommandAllocator() = default;
 		CommandAllocator(const CommandAllocator&) = delete;

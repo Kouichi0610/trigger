@@ -4,6 +4,7 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
+#include "../../../logger/Logger.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
@@ -56,6 +57,7 @@ namespace dx {
 			nullptr,
 			IID_PPV_ARGS(&vertexBuffer)
 		);
+		logger::CheckError(result, "Create VertexBuffer");
 
 		{
 			T* map = nullptr;

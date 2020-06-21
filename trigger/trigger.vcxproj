@@ -172,11 +172,11 @@
     <ClCompile Include="dx\renderer\pipeline\PipelineState.cpp" />
     <ClCompile Include="dx\renderer\Polygon.cpp" />
     <ClCompile Include="dx\renderer\rootsignature\RootSignature.cpp" />
+    <ClCompile Include="dx\renderer\Texture.cpp" />
     <ClCompile Include="dx\renderer\TexturePolygon.cpp" />
     <ClCompile Include="dx\shader\PixelShader.cpp" />
     <ClCompile Include="dx\shader\VertexShader.cpp" />
-    <ClCompile Include="logger\components\Logger.cpp" />
-    <ClCompile Include="logger\LoggerFactory.cpp" />
+    <ClCompile Include="logger\Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -202,13 +202,12 @@
     <ClInclude Include="dx\renderer\pipeline\PipelineState.h" />
     <ClInclude Include="dx\renderer\Polygon.h" />
     <ClInclude Include="dx\renderer\rootsignature\RootSignature.h" />
+    <ClInclude Include="dx\renderer\Texture.h" />
     <ClInclude Include="dx\renderer\TexturePolygon.h" />
     <ClInclude Include="dx\renderer\Vertex.h" />
     <ClInclude Include="dx\shader\PixelShader.h" />
     <ClInclude Include="dx\shader\VertexShader.h" />
-    <ClInclude Include="logger\components\Logger.h" />
-    <ClInclude Include="logger\ILogger.h" />
-    <ClInclude Include="logger\LoggerFactory.h" />
+    <ClInclude Include="logger\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicPixelShader.hlsl">

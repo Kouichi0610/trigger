@@ -8,6 +8,11 @@
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
+	/// <summary>
+	/// サブリソース経由のテクスチャ
+	/// 
+	/// CPU経由で転送？
+	/// </summary>
 	class TextureBuffer final {
 	public:
 		ComPtr<ID3D12Resource> Get() const;

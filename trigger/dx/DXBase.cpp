@@ -17,6 +17,7 @@
 
 #include "renderer/IModel.h"
 #include "renderer/ModelFactory.h"
+#include "renderer/Texture.h"
 
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
@@ -111,21 +112,21 @@ namespace dx {
 		// DirectXTexŠÖ˜A‚Ì‚½‚ß‚É•K—v
 		auto result = CoInitializeEx(0, COINIT_MULTITHREADED);
 
-		auto factory = factory::Factory(logger);
-		auto device = factory::Device(logger);
-		auto commandQueue = factory::CommandQueue(device, logger);
-		auto swapchain = factory::SwapChain(hwnd, factory, commandQueue, FrameBufferCount, logger);
-		auto commandAllocator = factory::CommandAllocator(device, FrameBufferCount, logger);
-		auto commandList = factory::CommandList(device, commandAllocator, logger);
-		auto heapRtv = factory::HeapRtv(device, FrameBufferCount, logger);
-		auto renderTargets = factory::RenderTargets(device, swapchain, heapRtv, FrameBufferCount, logger);
-		auto heapDsv = factory::HeapDsv(device, logger);
+		auto factory = factory::Factory();
+		auto device = factory::Device();
+		auto commandQueue = factory::CommandQueue(device);
+		auto swapchain = factory::SwapChain(hwnd, factory, commandQueue, FrameBufferCount);
+		auto commandAllocator = factory::CommandAllocator(device, FrameBufferCount);
+		auto commandList = factory::CommandList(device, commandAllocator);
+		auto heapRtv = factory::HeapRtv(device, FrameBufferCount);
+		auto renderTargets = factory::RenderTargets(device, swapchain, heapRtv, FrameBufferCount);
+		auto heapDsv = factory::HeapDsv(device);
 
 		auto width = swapchain.Width();
 		auto height = swapchain.Height();
 
-		auto depthBuffer = factory::DepthBuffer(device, heapDsv, width, height, logger);
-		auto fence = factory::Fence(device, logger);
+		auto depthBuffer = factory::DepthBuffer(device, heapDsv, width, height);
+		auto fence = factory::Fence(device);
 
 		this->factory = factory.Get();
 		this->device = device.Get();
@@ -164,11 +165,9 @@ namespace dx {
 		commandQueue = nullptr;
 		device = nullptr;
 		factory = nullptr;
-		logger = nullptr;
 	}
 
-	DXBase::DXBase(std::shared_ptr<logger::ILogger> logger) {
-		this->logger = logger;
+	DXBase::DXBase() {
 	}
 	DXBase::~DXBase() {
 		Terminate();
@@ -182,4 +181,7 @@ namespace dx {
 		return std::make_unique<ModelFactory>(device);
 	}
 
+	std::unique_ptr<Texture> DXBase::CreateTexture() const {
+		return std::make_unique<Texture>(device, commandList, commandQueue);
+	}
 }

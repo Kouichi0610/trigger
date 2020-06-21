@@ -3,7 +3,6 @@
 #include <dxgi1_6.h>
 #include <wrl.h>
 #include <memory>
-#include "../../logger/ILogger.h"
 																				
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -17,7 +16,7 @@ namespace dx::factory {
 		int Width() const;
 		int Height() const;
 		ComPtr<IDXGISwapChain4> Get() const;
-		SwapChain(HWND, const Factory&, const CommandQueue&, UINT, std::shared_ptr<logger::ILogger>);
+		SwapChain(HWND, const Factory&, const CommandQueue&, UINT);
 
 		virtual ~SwapChain() = default;
 		SwapChain(const SwapChain&) = delete;

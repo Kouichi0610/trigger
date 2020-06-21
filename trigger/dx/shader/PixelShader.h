@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "../../logger/ILogger.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
@@ -13,7 +12,7 @@ namespace dx {
 	class PixelShader final {
 	public:
 		ComPtr<ID3DBlob> Get() const;
-		PixelShader(LPCWSTR, std::string, std::shared_ptr<logger::ILogger>);
+		PixelShader(LPCWSTR, std::string);
 
 		virtual ~PixelShader() = default;
 		PixelShader(const PixelShader&) = delete;

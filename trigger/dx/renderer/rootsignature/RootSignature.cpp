@@ -1,4 +1,5 @@
 #include "RootSignature.h"
+#include "../../../logger/Logger.h"
 
 namespace dx {
 	ComPtr<ID3D12RootSignature> RootSignature::Get() const {
@@ -26,5 +27,6 @@ namespace dx {
 			IID_PPV_ARGS(&rootSignature)
 		);
 		sigBlob->Release();
+		logger::CheckError(result, error, "Create RootSignature");
 	}
 }

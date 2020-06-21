@@ -8,6 +8,9 @@
 
 #include "../factory/HeapSrv.h"
 
+#include "../../logger/Logger.h"
+
+
 namespace dx {
 	using namespace DirectX;
 
@@ -16,9 +19,11 @@ namespace dx {
 		indexBuffer = std::make_unique<IndexBuffer>(device, indices);
 		textureBuffer = std::make_unique<TextureBuffer>(device, texturePath);
 
-		auto heapSrv = factory::HeapSrv(device, nullptr);
+		auto heapSrv = factory::HeapSrv(device);
 		this->heapSrv = heapSrv.Get();
 		// シェーダーリソースビュー作成
+		// TODO:TextureBufferと統合
+		// TODO:TextureBufferを外部から渡すように変更、複数のTexturePolygonで共有する
 		auto desc = D3D12_SHADER_RESOURCE_VIEW_DESC{};
 		desc.Format = textureBuffer->Format();
 		desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
@@ -41,6 +46,8 @@ namespace dx {
 		this->pipelineState = this->createPipelineState(device, rootSignature);
 
 		indicesCount = indices.size();
+
+		//dx::ThrowIfFailed(INTSAFE_E_ARITHMETIC_OVERFLOW);
 	}
 
 	void TexturePolygon::Render(ComPtr<ID3D12GraphicsCommandList> commandList) {
@@ -111,6 +118,7 @@ namespace dx {
 			&sigBlob,
 			&error
 		);
+		logger::CheckError(result, error, "Create Binary");
 
 		// バイナリコードをもとにルートシグネチャを作成
 		result = device->CreateRootSignature(
@@ -119,6 +127,7 @@ namespace dx {
 			sigBlob->GetBufferSize(),
 			IID_PPV_ARGS(&rootSignature)
 		);
+		logger::CheckError(result, "Create RootSignature");
 		sigBlob->Release();
 		return rootSignature;
 	}
@@ -190,6 +199,7 @@ namespace dx {
 		// グラフィックスパイプラインステートオブジェクトの作成
 		auto result = device->CreateGraphicsPipelineState(
 			&pipeline, IID_PPV_ARGS(&pipelineState));
+		logger::CheckError(result, "Create PipelineState");
 
 		return pipelineState;
 	}

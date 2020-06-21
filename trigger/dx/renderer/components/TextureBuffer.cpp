@@ -1,5 +1,6 @@
 #include <DirectXTex.h>
 #include "TextureBuffer.h"
+#include "../../../logger/Logger.h"
 
 /*
 	DirectXTex使い方
@@ -59,6 +60,7 @@ namespace dx {
 			nullptr,
 			IID_PPV_ARGS(&textureBuffer)
 		);
+		logger::CheckError(result, "Create TextureBuffer");
 		result = textureBuffer->WriteToSubresource(
 			0,
 			nullptr,	// 全領域へコピー
@@ -66,6 +68,7 @@ namespace dx {
 			img->rowPitch,	// 1ライン当たりのサイズ
 			img->slicePitch	// 全サイズ
 		);
+		logger::CheckError(result, "Write TextureBuffer");
 	}
 	TextureBuffer::TextureBuffer(ComPtr<ID3D12Device> device, std::vector<TexRGBA> data, int width, int height) {
 		auto prop = D3D12_HEAP_PROPERTIES{};
@@ -95,6 +98,7 @@ namespace dx {
 			nullptr,
 			IID_PPV_ARGS(&textureBuffer)
 		);
+		logger::CheckError(result, "Create TextureBuffer");
 		result = textureBuffer->WriteToSubresource(
 			0,
 			nullptr,	// 全領域へコピー
@@ -102,5 +106,6 @@ namespace dx {
 			sizeof(TexRGBA) * width,	// 1ライン当たりのサイズ
 			sizeof(TexRGBA) * data.size()	// 全サイズ
 		);
+		logger::CheckError(result, "Write TextureBuffer");
 	}
 }

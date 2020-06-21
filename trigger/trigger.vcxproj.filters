@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="logger\components\Logger.cpp">
-      <Filter>logger\components</Filter>
-    </ClCompile>
-    <ClCompile Include="logger\LoggerFactory.cpp">
-      <Filter>logger</Filter>
-    </ClCompile>
     <ClCompile Include="dx\DXBase.cpp">
       <Filter>dx</Filter>
     </ClCompile>
@@ -80,13 +74,16 @@
     <ClCompile Include="dx\renderer\components\TextureBuffer.cpp">
       <Filter>dx\renderer\comonents</Filter>
     </ClCompile>
+    <ClCompile Include="dx\renderer\Texture.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\Logger.cpp">
+      <Filter>logger</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logger">
       <UniqueIdentifier>{93bcd34f-0b61-41f5-9e7e-fd95526b3136}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="logger\components">
-      <UniqueIdentifier>{eab28d0a-2d4d-4f16-b167-1bcb332f0d75}</UniqueIdentifier>
     </Filter>
     <Filter Include="dx">
       <UniqueIdentifier>{24c7f285-97ee-4919-af45-6b910f0a07b8}</UniqueIdentifier>
@@ -111,15 +108,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="logger\ILogger.h">
-      <Filter>logger</Filter>
-    </ClInclude>
-    <ClInclude Include="logger\components\Logger.h">
-      <Filter>logger\components</Filter>
-    </ClInclude>
-    <ClInclude Include="logger\LoggerFactory.h">
-      <Filter>logger</Filter>
-    </ClInclude>
     <ClInclude Include="dx\DXBase.h">
       <Filter>dx</Filter>
     </ClInclude>
@@ -197,6 +185,12 @@
     </ClInclude>
     <ClInclude Include="dx\renderer\components\TextureBuffer.h">
       <Filter>dx\renderer\comonents</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\Texture.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\Logger.h">
+      <Filter>logger</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

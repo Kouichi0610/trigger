@@ -1,10 +1,11 @@
 #include "ComittedResource.h"
+#include "../../logger/Logger.h"
 
 namespace dx::factory {
 	ComPtr<ID3D12Resource> ComittedResource::Get() const {
 		return buffer;
 	}
-	ComittedResource::ComittedResource(ComPtr<ID3D12Device> device, UINT64 size, std::shared_ptr<logger::ILogger> logger) {
+	ComittedResource::ComittedResource(ComPtr<ID3D12Device> device, UINT64 size) {
 		auto prop = D3D12_HEAP_PROPERTIES{};
 		prop.Type = D3D12_HEAP_TYPE_UPLOAD;
 		prop.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -32,6 +33,6 @@ namespace dx::factory {
 			nullptr,
 			IID_PPV_ARGS(&buffer)
 		);
-		logger->CheckError(result, "Create ComittedResource");
+		logger::CheckError(result, "Create ComittedResource");
 	}
 }
