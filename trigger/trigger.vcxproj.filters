@@ -71,17 +71,17 @@
     <ClCompile Include="dx\renderer\TexturePolygon.cpp">
       <Filter>dx\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="dx\renderer\components\TextureBuffer.cpp">
-      <Filter>dx\renderer\comonents</Filter>
-    </ClCompile>
-    <ClCompile Include="dx\renderer\Texture.cpp">
-      <Filter>dx\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="logger\Logger.cpp">
       <Filter>logger</Filter>
     </ClCompile>
     <ClCompile Include="dx\CommandExecutor.cpp">
       <Filter>dx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\texture\Texture.cpp">
+      <Filter>dx\renderer\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\texture\TextureBuffer.cpp">
+      <Filter>dx\renderer\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +108,9 @@
     </Filter>
     <Filter Include="dx\renderer\pipeline">
       <UniqueIdentifier>{039381a8-c86b-4102-9d5f-f80815e51796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\renderer\texture">
+      <UniqueIdentifier>{d65b51b3-55aa-45ee-a0b7-3c7ebde40fb2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -186,17 +189,20 @@
     <ClInclude Include="dx\renderer\TexturePolygon.h">
       <Filter>dx\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="dx\renderer\components\TextureBuffer.h">
-      <Filter>dx\renderer\comonents</Filter>
-    </ClInclude>
-    <ClInclude Include="dx\renderer\Texture.h">
-      <Filter>dx\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="logger\Logger.h">
       <Filter>logger</Filter>
     </ClInclude>
     <ClInclude Include="dx\CommandExecutor.h">
       <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\texture\ITexture.h">
+      <Filter>dx\renderer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\texture\Texture.h">
+      <Filter>dx\renderer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\texture\TextureBuffer.h">
+      <Filter>dx\renderer\texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

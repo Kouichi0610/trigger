@@ -19,7 +19,7 @@
 
 #include "renderer/IModel.h"
 #include "renderer/ModelFactory.h"
-#include "renderer/Texture.h"
+#include "renderer/texture/Texture.h"
 
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")

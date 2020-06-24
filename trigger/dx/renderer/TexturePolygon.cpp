@@ -1,7 +1,7 @@
 #include "TexturePolygon.h"
 #include "components/VertexBuffer.h"
 #include "components/IndexBuffer.h"
-#include "components/TextureBuffer.h"
+#include "texture/ITexture.h"
 
 #include "../shader/VertexShader.h"
 #include "../shader/PixelShader.h"
@@ -14,24 +14,21 @@
 namespace dx {
 	using namespace DirectX;
 
-	TexturePolygon::TexturePolygon(ComPtr<ID3D12Device> device, std::vector<TextureVertex> vertices, std::vector<unsigned short> indices, const wchar_t* texturePath, std::shared_ptr<VertexShader> vertexShader, std::shared_ptr<PixelShader> pixelShader) {
+	TexturePolygon::TexturePolygon(ComPtr<ID3D12Device> device, std::vector<TextureVertex> vertices, std::vector<unsigned short> indices, ITexture* texture, std::shared_ptr<VertexShader> vertexShader, std::shared_ptr<PixelShader> pixelShader) {
 		vertexBuffer = std::make_unique<VertexBuffer>(device, vertices);
 		indexBuffer = std::make_unique<IndexBuffer>(device, indices);
-		textureBuffer = std::make_unique<TextureBuffer>(device, texturePath);
 
 		auto heapSrv = factory::HeapSrv(device);
 		this->heapSrv = heapSrv.Get();
 		// シェーダーリソースビュー作成
-		// TODO:TextureBufferと統合
-		// TODO:TextureBufferを外部から渡すように変更、複数のTexturePolygonで共有する
 		auto desc = D3D12_SHADER_RESOURCE_VIEW_DESC{};
-		desc.Format = textureBuffer->Format();
+		desc.Format = texture->Format();
 		desc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 		desc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;	// 2Dテクスチャ
 		desc.Texture2D.MipLevels = 1;
 
 		device->CreateShaderResourceView(
-			textureBuffer->Get().Get(),
+			texture->Get(),
 			&desc,
 			this->heapSrv->GetCPUDescriptorHandleForHeapStart()
 		);

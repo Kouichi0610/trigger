@@ -19,8 +19,8 @@ TODO:ミップマップ
 
 */
 namespace dx {
-	ComPtr<ID3D12Resource> TextureBuffer::Get() const {
-		return textureBuffer;
+	ID3D12Resource* TextureBuffer::Get() const {
+		return textureBuffer.Get();
 	}
 	DXGI_FORMAT TextureBuffer::Format() const {
 		return format;

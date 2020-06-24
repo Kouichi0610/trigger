@@ -4,7 +4,10 @@
 
 #include "dx/renderer/ModelFactory.h"
 #include "dx/renderer/Vertex.h"
-#include "dx/renderer/Texture.h"
+#include "dx/renderer/texture/ITexture.h"
+#include "dx/renderer/texture/Texture.h"
+#include "dx/renderer/texture/TextureBuffer.h"
+
 
 #include "dx/shader/VertexShader.h"
 #include "dx/shader/PixelShader.h"
@@ -55,6 +58,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// load texture test
 	auto texture = dx.CreateTexture();
 	texture->Load(L"./Resource/test.png");
+	//auto textureBuffer = dx::TextureBuffer(dx.GetDevice(), L"./Resource/test.png");
+
 
 	auto modelFactory = dx.CreateModelFactory();
 	{
@@ -92,7 +97,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		auto vs = std::make_shared <dx::VertexShader>(L"BasicVertexShader.hlsl", "BasicVS");
 		auto ps = std::make_shared <dx::PixelShader>(L"BasicPixelShader.hlsl", "BasicPS");
 
-		auto polygon = modelFactory->Create(vertices, indices, L"./Resource/test.png", vs, ps);
+		auto polygon = modelFactory->Create(vertices, indices, texture.get(), vs, ps);
 		dx.Entry(polygon);
 	}
 

@@ -4,6 +4,7 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
+#include "ITexture.h"
 #include "../Vertex.h"
 
 namespace dx {
@@ -13,10 +14,11 @@ namespace dx {
 	/// 
 	/// CPUåoóRÇ≈ì]ëóÅH
 	/// </summary>
-	class TextureBuffer final {
+	class TextureBuffer final : public ITexture {
 	public:
-		ComPtr<ID3D12Resource> Get() const;
-		DXGI_FORMAT Format() const;
+		virtual ID3D12Resource* Get() const;
+		virtual DXGI_FORMAT Format() const;
+
 		TextureBuffer(ComPtr<ID3D12Device>, const wchar_t* path);
 		TextureBuffer(ComPtr<ID3D12Device>, std::vector<TexRGBA>, int w, int h);
 

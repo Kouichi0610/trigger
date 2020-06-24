@@ -16,15 +16,15 @@ using namespace DirectX;
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
+	class ITexture;
 	class VertexBuffer;
 	class IndexBuffer;
-	class TextureBuffer;
 	class PixelShader;
 	class VertexShader;
 
 	class TexturePolygon : public IModel {
 	public:
-		TexturePolygon(ComPtr<ID3D12Device>, std::vector<TextureVertex>, std::vector<unsigned short>, const wchar_t*,  std::shared_ptr<VertexShader>, std::shared_ptr<PixelShader>);
+		TexturePolygon(ComPtr<ID3D12Device>, std::vector<TextureVertex>, std::vector<unsigned short>, ITexture*,  std::shared_ptr<VertexShader>, std::shared_ptr<PixelShader>);
 
 		virtual void Render(ComPtr<ID3D12GraphicsCommandList>);
 
@@ -36,7 +36,6 @@ namespace dx {
 
 		std::unique_ptr<VertexBuffer> vertexBuffer;
 		std::unique_ptr<IndexBuffer> indexBuffer;
-		std::unique_ptr<TextureBuffer> textureBuffer;
 
 		ComPtr<ID3D12DescriptorHeap> heapSrv;
 

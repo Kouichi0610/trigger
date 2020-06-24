@@ -5,14 +5,21 @@
 #include <memory>
 #include <vector>
 #include "Texture.h"
-#include "../CommandExecutor.h"
-#include "../shader/VertexShader.h"
-#include "../shader/PixelShader.h"
-#include "../../logger/Logger.h"
+#include "../../CommandExecutor.h"
+#include "../../shader/VertexShader.h"
+#include "../../shader/PixelShader.h"
+#include "../../../logger/Logger.h"
 
 using namespace DirectX;
 
 namespace dx {
+	ID3D12Resource* Texture::Get() const {
+		return textureBuffer.Get();
+	}
+	DXGI_FORMAT Texture::Format() const {
+		return format;
+	}
+
 	Texture::Texture(ComPtr<ID3D12Device> device, ComPtr<ID3D12GraphicsCommandList> list, CommandExecutor* executor) {
 		this->device = device;
 		this->commandList = list;
@@ -32,6 +39,8 @@ namespace dx {
 		ScratchImage scratchImg = {};
 		auto result = LoadFromWICFile(path, WIC_FLAGS_NONE, &metadata, scratchImg);
 		auto img = scratchImg.GetImage(0, 0, 0);
+
+		format = metadata.format;
 
 		// •‚ð256‚É‡‚í‚¹‚é
 		auto pitch = img->rowPitch + D3D12_TEXTURE_DATA_PITCH_ALIGNMENT - img->rowPitch % D3D12_TEXTURE_DATA_PITCH_ALIGNMENT;

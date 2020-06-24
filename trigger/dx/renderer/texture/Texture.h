@@ -4,6 +4,7 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
+#include "ITexture.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
@@ -14,12 +15,17 @@ namespace dx {
 	/// <summary>
 	/// CommandList経由でのテクスチャ作成
 	/// 
-	/// TODO:実装
-	/// TODO:Loggerをthrowiffailed形式に
+	/// TODO:
+	/// 3.TexturePolygonにITextureを渡す形式で
+	/// 
+	/// 4.命名
+	/// 5.
 	/// 
 	/// </summary>
-	class Texture final {
+	class Texture final : public ITexture {
 	public:
+		virtual ID3D12Resource* Get() const;
+		virtual DXGI_FORMAT Format() const;
 
 		Texture(ComPtr<ID3D12Device>, ComPtr<ID3D12GraphicsCommandList>, CommandExecutor*);
 		void Load(const wchar_t* texturePath);
@@ -33,5 +39,6 @@ namespace dx {
 
 		ComPtr<ID3D12Resource> uploadBuffer;
 		ComPtr<ID3D12Resource> textureBuffer;
+		DXGI_FORMAT format;
 	};
 }
