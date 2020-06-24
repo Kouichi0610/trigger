@@ -80,6 +80,9 @@
     <ClCompile Include="logger\Logger.cpp">
       <Filter>logger</Filter>
     </ClCompile>
+    <ClCompile Include="dx\CommandExecutor.cpp">
+      <Filter>dx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logger">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="logger\Logger.h">
       <Filter>logger</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\CommandExecutor.h">
+      <Filter>dx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,8 @@
 #include <DirectXMath.h>
 #include <wrl.h>
 #include "DXBase.h"
+#include "CommandExecutor.h"
+
 #include "factory/Factory.h"
 #include "factory/Device.h"
 #include "factory/CommandQueue.h"
@@ -58,7 +60,6 @@ namespace dx {
 
 		}
 
-		// TODO:パイプラインステートの設定が先かもしれない
 		commandList->RSSetViewports(1, &viewport);
 		commandList->RSSetScissorRects(1, &scissorrect);
 
@@ -80,24 +81,9 @@ namespace dx {
 		// 命令受付終了
 		commandList->Close();
 
-		// コマンドリストを実行する
-		{
-			ID3D12CommandList* commands[] = { commandList.Get() };
-			commandQueue->ExecuteCommandLists(1, commands);
-		}
-		// 実行完了を待つ
-		{
-			fenceValue++;
-			commandQueue->Signal(fence.Get(), fenceValue);
 
-			if (fence->GetCompletedValue() != fenceValue) {
-				auto event = CreateEvent(nullptr, false, false, nullptr);
-				fence->SetEventOnCompletion(fenceValue, event);
-
-				WaitForSingleObject(event, INFINITE);
-				CloseHandle(event);
-			}
-		}
+		// CommandQueue コマンドリストの実行＆実行完了
+		commandExecutor->Execute(commandList);
 
 		// 実行完了。コマンドリストをクリア
 		commandAllocators[idx]->Reset();
@@ -130,7 +116,6 @@ namespace dx {
 
 		this->factory = factory.Get();
 		this->device = device.Get();
-		this->commandQueue = commandQueue.Get();
 		this->swapChain = swapchain.Get();
 		this->commandAllocators = commandAllocator.Get();
 		this->commandList = commandList.Get();
@@ -138,8 +123,8 @@ namespace dx {
 		this->renderTargets = renderTargets.Get();
 		this->heapDsv = heapDsv.Get();
 		this->depthBuffer = depthBuffer.Get();
-		this->fence = fence.Get();
-		this->fenceValue = fence.FenceValue();
+
+		commandExecutor = std::make_unique<CommandExecutor>(commandQueue.Get(), fence.Get());
 
 		viewport.Width = (float)width;
 		viewport.Height = (float)height;
@@ -154,7 +139,6 @@ namespace dx {
 		scissorrect.bottom = scissorrect.top + height;
 	}
 	void DXBase::Terminate() {
-		fence = nullptr;
 		depthBuffer = nullptr;
 		heapDsv = nullptr;
 		renderTargets.clear();
@@ -162,7 +146,6 @@ namespace dx {
 		commandList = nullptr;
 		commandAllocators.clear();
 		swapChain = nullptr;
-		commandQueue = nullptr;
 		device = nullptr;
 		factory = nullptr;
 	}
@@ -182,6 +165,6 @@ namespace dx {
 	}
 
 	std::unique_ptr<Texture> DXBase::CreateTexture() const {
-		return std::make_unique<Texture>(device, commandList, commandQueue);
+		return std::make_unique<Texture>(device, commandList, commandExecutor.get());
 	}
 }

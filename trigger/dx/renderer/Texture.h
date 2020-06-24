@@ -7,6 +7,7 @@
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
+	class CommandExecutor;
 	class VertexShader;
 	class PixelShader;
 
@@ -20,7 +21,7 @@ namespace dx {
 	class Texture final {
 	public:
 
-		Texture(ComPtr<ID3D12Device>, ComPtr<ID3D12GraphicsCommandList>, ComPtr<ID3D12CommandQueue>);
+		Texture(ComPtr<ID3D12Device>, ComPtr<ID3D12GraphicsCommandList>, CommandExecutor*);
 		void Load(const wchar_t* texturePath);
 
 		virtual ~Texture() = default;
@@ -28,7 +29,7 @@ namespace dx {
 	private:
 		ComPtr<ID3D12Device> device;
 		ComPtr<ID3D12GraphicsCommandList> commandList;
-		ComPtr<ID3D12CommandQueue> commandQueue;
+		CommandExecutor* executor;
 
 		ComPtr<ID3D12Resource> uploadBuffer;
 		ComPtr<ID3D12Resource> textureBuffer;

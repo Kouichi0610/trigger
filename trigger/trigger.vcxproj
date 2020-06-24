@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dx\CommandExecutor.cpp" />
     <ClCompile Include="dx\DXBase.cpp" />
     <ClCompile Include="dx\factory\CommandAllocator.cpp" />
     <ClCompile Include="dx\factory\CommandList.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dx\CommandExecutor.h" />
     <ClInclude Include="dx\DXBase.h" />
     <ClInclude Include="dx\factory\CommandAllocator.h" />
     <ClInclude Include="dx\factory\CommandList.h" />

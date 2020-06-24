@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include "Texture.h"
+#include "../CommandExecutor.h"
 #include "../shader/VertexShader.h"
 #include "../shader/PixelShader.h"
 #include "../../logger/Logger.h"
@@ -12,16 +13,28 @@
 using namespace DirectX;
 
 namespace dx {
-	Texture::Texture(ComPtr<ID3D12Device> device, ComPtr<ID3D12GraphicsCommandList> list, ComPtr<ID3D12CommandQueue> queue) {
+	Texture::Texture(ComPtr<ID3D12Device> device, ComPtr<ID3D12GraphicsCommandList> list, CommandExecutor* executor) {
 		this->device = device;
 		this->commandList = list;
-		this->commandQueue = queue;
+		this->executor = executor;
 	}
+	/// <summary>
+	/// 
+	/// 
+	/// CPU側				マップ	GPU側				コピー
+	/// テクスチャデータ	->		アップロードバッファ -> 読み取り用バッファ
+	///														(これをテクスチャとして利用する)
+	/// 
+	/// </summary>
+	/// <param name="path"></param>
 	void Texture::Load(const wchar_t* path) {
 		TexMetadata metadata = {};
 		ScratchImage scratchImg = {};
 		auto result = LoadFromWICFile(path, WIC_FLAGS_NONE, &metadata, scratchImg);
 		auto img = scratchImg.GetImage(0, 0, 0);
+
+		// 幅を256に合わせる
+		auto pitch = img->rowPitch + D3D12_TEXTURE_DATA_PITCH_ALIGNMENT - img->rowPitch % D3D12_TEXTURE_DATA_PITCH_ALIGNMENT;
 
 		{	// アップロードバッファ(GPU側)
 			auto prop = D3D12_HEAP_PROPERTIES{};
@@ -35,7 +48,7 @@ namespace dx {
 			auto desc = D3D12_RESOURCE_DESC{};
 			desc.Format = DXGI_FORMAT_UNKNOWN;
 			desc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
-			desc.Width = img->slicePitch;
+			desc.Width = pitch * img->height;
 			desc.Height = 1;
 			// TODO:TextureBuffer
 			desc.DepthOrArraySize = 1;
@@ -84,9 +97,60 @@ namespace dx {
 				IID_PPV_ARGS(&textureBuffer)
 			);
 			logger::CheckError(result, "Copy TextureBuffer");
-
-			//TODO:map
 		}
+		{
+			// アップロードバッファへのmap
+			uint8_t* mapforimg = nullptr;
+			result = uploadBuffer->Map(0, nullptr, (void**)&mapforimg);
+			logger::CheckError(result, "map to uploadBuffer.");
+
+			auto pSrc = img->pixels;
+			for (auto y = 0; y < img->height; y++) {
+				std::copy_n(pSrc, pitch, mapforimg);
+				pSrc += img->rowPitch;
+				mapforimg += pitch;
+			}
+			uploadBuffer->Unmap(0, nullptr);
+		}
+
+		{	// アップロードバッファから読み取りバッファへの転送
+			auto src = D3D12_TEXTURE_COPY_LOCATION{};
+			src.pResource = uploadBuffer.Get();
+			src.Type = D3D12_TEXTURE_COPY_TYPE_PLACED_FOOTPRINT; // pResourceにバッファリソース(SUBRESOURCE_INDEXでテクスチャリソース)
+			src.PlacedFootprint.Offset = 0;
+			src.PlacedFootprint.Footprint.Width = metadata.width;
+			src.PlacedFootprint.Footprint.Height = metadata.height;
+			src.PlacedFootprint.Footprint.Depth = metadata.depth;
+
+			src.PlacedFootprint.Footprint.RowPitch = pitch;
+			src.PlacedFootprint.Footprint.Format = img->format;
+
+			auto dst = D3D12_TEXTURE_COPY_LOCATION{};
+			dst.pResource = textureBuffer.Get();
+			dst.Type = D3D12_TEXTURE_COPY_TYPE_SUBRESOURCE_INDEX;
+			dst.SubresourceIndex = 0;
+
+			commandList->CopyTextureRegion(&dst, 0, 0, 0, &src, nullptr);
+		}
+		// バリアとフェンスの設定
+		// GPU操作のため、フェンスで終了を待つ
+		// TODO:リソースバリアについて
+		{
+			auto desc = D3D12_RESOURCE_BARRIER{};
+			desc.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+			desc.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+			desc.Transition.pResource = textureBuffer.Get();
+			desc.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+			desc.Transition.StateBefore = D3D12_RESOURCE_STATE_COPY_DEST;
+			desc.Transition.StateAfter = D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
+
+			commandList->ResourceBarrier(1, &desc);
+			commandList->Close();
+
+			// コマンドリスト実行
+			executor->Execute(commandList);
+		}
+
 
 	}
 }
