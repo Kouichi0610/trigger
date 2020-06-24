@@ -3,7 +3,6 @@
 #include <dxgi1_6.h>
 #include <wrl.h>
 #include <memory>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -11,7 +10,7 @@ namespace dx::factory {
 	class Device final {
 	public:
 		ComPtr<ID3D12Device> Get() const;
-		Device(std::shared_ptr<logger::ILogger>);
+		Device();
 
 		virtual ~Device() = default;
 		Device(const Device&) = delete;

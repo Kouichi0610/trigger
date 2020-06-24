@@ -1,12 +1,13 @@
 #include "VertexShader.h"
 #include <d3dcompiler.h>
+#include "../../logger/Logger.h"
 
-namespace dx::factory {
+namespace dx {
 	ComPtr<ID3DBlob> VertexShader::Get() const {
 		return shader;
 	}
 
-	VertexShader::VertexShader(LPCWSTR file, std::string entry, std::shared_ptr<logger::ILogger> logger) {
+	VertexShader::VertexShader(LPCWSTR file, std::string entry) {
 		ComPtr<ID3DBlob> error;
 		auto result = D3DCompileFromFile(
 			file,
@@ -17,6 +18,6 @@ namespace dx::factory {
 			0,
 			&shader, &error);
 
-		logger->CheckError(result, error, "Create VertexShader");
+		logger::CheckError(result, error, "Create VertexShader");
 	}
 }

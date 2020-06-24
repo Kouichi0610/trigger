@@ -1,11 +1,11 @@
 #include "RootSignature.h"
+#include "../../../logger/Logger.h"
 
-namespace dx::factory {
+namespace dx {
 	ComPtr<ID3D12RootSignature> RootSignature::Get() const {
 		return rootSignature;
 	}
-	// TOOD:定数バッファの指定などで引数増えるはず
-	RootSignature::RootSignature(ComPtr<ID3D12Device> device, std::shared_ptr<logger::ILogger> logger) {
+	RootSignature::RootSignature(ComPtr<ID3D12Device> device) {
 		auto desc = D3D12_ROOT_SIGNATURE_DESC{};
 		desc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
 
@@ -18,7 +18,6 @@ namespace dx::factory {
 			&sigBlob,
 			&error
 		);
-		logger->CheckError(result, error, "SerializeRootSignature");
 
 		// バイナリコードをもとにルートシグネチャを作成
 		result = device->CreateRootSignature(
@@ -27,11 +26,7 @@ namespace dx::factory {
 			sigBlob->GetBufferSize(),
 			IID_PPV_ARGS(&rootSignature)
 		);
-		logger->CheckError(result, "Create RootSignature");
 		sigBlob->Release();
+		logger::CheckError(result, error, "Create RootSignature");
 	}
-
-	// SIGNATURE_VERSIONは
-	// device->CheckFeatureSupport();
-	// で対応バージョンを確認できる
 }

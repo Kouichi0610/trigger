@@ -1,7 +1,16 @@
 #include <Windows.h>
 
 #include "dx/DXBase.h"
-#include "logger/LoggerFactory.h"
+
+#include "dx/renderer/ModelFactory.h"
+#include "dx/renderer/Vertex.h"
+#include "dx/renderer/texture/ITexture.h"
+#include "dx/renderer/texture/Texture.h"
+#include "dx/renderer/texture/TextureBuffer.h"
+
+
+#include "dx/shader/VertexShader.h"
+#include "dx/shader/PixelShader.h"
 
 LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -12,7 +21,6 @@ LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
-
 
 #ifdef _DEBUG
 int main()
@@ -44,9 +52,54 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		nullptr
 	);
 
-	auto logger = logger::LoggerFactory().Logger();
-	auto dx = dx::DXBase(logger);
+	auto dx = dx::DXBase();
 	dx.Initialize(hwnd);
+
+	// load texture test
+	auto texture = dx.CreateTexture();
+	texture->Load(L"./Resource/test.png");
+	//auto textureBuffer = dx::TextureBuffer(dx.GetDevice(), L"./Resource/test.png");
+
+
+	auto modelFactory = dx.CreateModelFactory();
+	{
+		auto vs = std::make_shared <dx::VertexShader>(L"SimpleVertexShader.hlsl", "BasicVS");
+		auto ps = std::make_shared <dx::PixelShader>(L"SimplePixelShader.hlsl", "BasicPS");
+
+		std::vector<dx::Vertex> vertices = {
+			{{0.6f,-0.4f, 0.0f}},
+			{{0.6f, 0.0f, 0.0f}},
+			{{0.8f,-0.4f, 0.0f}},
+			{{0.8f, 0.0f, 0.0f}},
+
+		};
+		std::vector<unsigned short> indices = { 0,1,2, 2,1,3 };
+		auto polygon = modelFactory->Create(vertices, indices, vs, ps);
+		dx.Entry(polygon);
+	}
+	{
+		std::vector<dx::TextureVertex> vertices = {
+			{{-0.4f,-0.7f, 0.0f}, {0.0f, 1.0f}},
+			{{-0.4f, 0.7f, 0.0f}, {0.0f, 0.0f}},
+			{{ 0.4f,-0.7f, 0.0f}, {1.0f, 1.0f}},
+			{{ 0.4f, 0.7f, 0.0f}, {1.0f, 0.0f}},
+
+		};
+		std::vector<unsigned short> indices = { 0,1,2, 2,1,3 };
+
+		std::vector<dx::TexRGBA> texturedata(256 * 256);
+		for (auto& t : texturedata) {
+			t.R = rand() % 256;
+			t.G = rand() % 256;
+			t.B = rand() % 256;
+			t.A = 255;
+		}
+		auto vs = std::make_shared <dx::VertexShader>(L"BasicVertexShader.hlsl", "BasicVS");
+		auto ps = std::make_shared <dx::PixelShader>(L"BasicPixelShader.hlsl", "BasicPS");
+
+		auto polygon = modelFactory->Create(vertices, indices, texture.get(), vs, ps);
+		dx.Entry(polygon);
+	}
 
 	ShowWindow(hwnd, SW_SHOW);
 

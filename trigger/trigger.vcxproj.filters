@@ -2,12 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="logger\components\Logger.cpp">
-      <Filter>logger\components</Filter>
-    </ClCompile>
-    <ClCompile Include="logger\LoggerFactory.cpp">
-      <Filter>logger</Filter>
-    </ClCompile>
     <ClCompile Include="dx\DXBase.cpp">
       <Filter>dx</Filter>
     </ClCompile>
@@ -47,28 +41,52 @@
     <ClCompile Include="dx\factory\ComittedResource.cpp">
       <Filter>dx\factory</Filter>
     </ClCompile>
-    <ClCompile Include="dx\Polygon.cpp">
+    <ClCompile Include="dx\factory\HeapSrv.cpp">
+      <Filter>dx\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\components\VertexBuffer.cpp">
+      <Filter>dx\renderer\comonents</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\components\IndexBuffer.cpp">
+      <Filter>dx\renderer\comonents</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\Polygon.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\shader\VertexShader.cpp">
+      <Filter>dx\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\shader\PixelShader.cpp">
+      <Filter>dx\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\rootsignature\RootSignature.cpp">
+      <Filter>dx\renderer\rootsignature</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\pipeline\PipelineState.cpp">
+      <Filter>dx\renderer\pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\ModelFactory.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\TexturePolygon.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="logger\Logger.cpp">
+      <Filter>logger</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\CommandExecutor.cpp">
       <Filter>dx</Filter>
     </ClCompile>
-    <ClCompile Include="dx\factory\PixelShader.cpp">
-      <Filter>dx\factory</Filter>
+    <ClCompile Include="dx\renderer\texture\Texture.cpp">
+      <Filter>dx\renderer\texture</Filter>
     </ClCompile>
-    <ClCompile Include="dx\factory\VertexShader.cpp">
-      <Filter>dx\factory</Filter>
-    </ClCompile>
-    <ClCompile Include="dx\factory\RootSignature.cpp">
-      <Filter>dx\factory</Filter>
-    </ClCompile>
-    <ClCompile Include="dx\factory\PipelineState.cpp">
-      <Filter>dx\factory</Filter>
+    <ClCompile Include="dx\renderer\texture\TextureBuffer.cpp">
+      <Filter>dx\renderer\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logger">
       <UniqueIdentifier>{93bcd34f-0b61-41f5-9e7e-fd95526b3136}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="logger\components">
-      <UniqueIdentifier>{eab28d0a-2d4d-4f16-b167-1bcb332f0d75}</UniqueIdentifier>
     </Filter>
     <Filter Include="dx">
       <UniqueIdentifier>{24c7f285-97ee-4919-af45-6b910f0a07b8}</UniqueIdentifier>
@@ -76,17 +94,26 @@
     <Filter Include="dx\factory">
       <UniqueIdentifier>{134b8745-ff3a-49c6-bd51-41fc8fca1afe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dx\renderer">
+      <UniqueIdentifier>{94634b28-dc26-47e4-ade8-e08cc8f18f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\renderer\comonents">
+      <UniqueIdentifier>{0f0a775f-541b-4ead-b021-13705b4475c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\shader">
+      <UniqueIdentifier>{cef55273-4583-4883-a430-7e31da2d1846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\renderer\rootsignature">
+      <UniqueIdentifier>{4cc549a3-9fab-4e05-9010-e3ba23868e8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\renderer\pipeline">
+      <UniqueIdentifier>{039381a8-c86b-4102-9d5f-f80815e51796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\renderer\texture">
+      <UniqueIdentifier>{d65b51b3-55aa-45ee-a0b7-3c7ebde40fb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="logger\ILogger.h">
-      <Filter>logger</Filter>
-    </ClInclude>
-    <ClInclude Include="logger\components\Logger.h">
-      <Filter>logger\components</Filter>
-    </ClInclude>
-    <ClInclude Include="logger\LoggerFactory.h">
-      <Filter>logger</Filter>
-    </ClInclude>
     <ClInclude Include="dx\DXBase.h">
       <Filter>dx</Filter>
     </ClInclude>
@@ -126,24 +153,65 @@
     <ClInclude Include="dx\factory\ComittedResource.h">
       <Filter>dx\factory</Filter>
     </ClInclude>
-    <ClInclude Include="dx\Polygon.h">
+    <ClInclude Include="dx\factory\HeapSrv.h">
+      <Filter>dx\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\IModel.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\components\VertexBuffer.h">
+      <Filter>dx\renderer\comonents</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\components\IndexBuffer.h">
+      <Filter>dx\renderer\comonents</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\Polygon.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\shader\VertexShader.h">
+      <Filter>dx\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\shader\PixelShader.h">
+      <Filter>dx\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\rootsignature\RootSignature.h">
+      <Filter>dx\renderer\rootsignature</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\pipeline\PipelineState.h">
+      <Filter>dx\renderer\pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\ModelFactory.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\Vertex.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\TexturePolygon.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="logger\Logger.h">
+      <Filter>logger</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\CommandExecutor.h">
       <Filter>dx</Filter>
     </ClInclude>
-    <ClInclude Include="dx\factory\PixelShader.h">
-      <Filter>dx\factory</Filter>
+    <ClInclude Include="dx\renderer\texture\ITexture.h">
+      <Filter>dx\renderer\texture</Filter>
     </ClInclude>
-    <ClInclude Include="dx\factory\VertexShader.h">
-      <Filter>dx\factory</Filter>
+    <ClInclude Include="dx\renderer\texture\Texture.h">
+      <Filter>dx\renderer\texture</Filter>
     </ClInclude>
-    <ClInclude Include="dx\factory\RootSignature.h">
-      <Filter>dx\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="dx\factory\PipelineState.h">
-      <Filter>dx\factory</Filter>
+    <ClInclude Include="dx\renderer\texture\TextureBuffer.h">
+      <Filter>dx\renderer\texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVertexShader.hlsl" />
     <FxCompile Include="BasicPixelShader.hlsl" />
+    <FxCompile Include="SimpleVertexShader.hlsl" />
+    <FxCompile Include="SimplePixelShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicShaderHeader.hlsli" />
   </ItemGroup>
 </Project>

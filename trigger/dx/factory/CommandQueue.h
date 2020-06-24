@@ -3,7 +3,6 @@
 #include <dxgi1_6.h>
 #include <wrl.h>
 #include <memory>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -12,7 +11,7 @@ namespace dx::factory {
 	class CommandQueue final {
 	public:
 		ComPtr<ID3D12CommandQueue> Get() const;
-		CommandQueue(const Device&, std::shared_ptr<logger::ILogger>);
+		CommandQueue(const Device&);
 
 		virtual ~CommandQueue() = default;
 		CommandQueue(const CommandQueue&) = delete;

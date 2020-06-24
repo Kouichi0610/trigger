@@ -1,12 +1,13 @@
 #include "PixelShader.h"
 #include <d3dcompiler.h>
+#include "../../logger/Logger.h"
 
-namespace dx::factory {
+namespace dx {
 	ComPtr<ID3DBlob> PixelShader::Get() const {
 		return shader;
 	}
 
-	PixelShader::PixelShader(LPCWSTR file, std::string entry, std::shared_ptr<logger::ILogger> logger) {
+	PixelShader::PixelShader(LPCWSTR file, std::string entry) {
 		ComPtr<ID3DBlob> error;
 		auto result = D3DCompileFromFile(
 			file,
@@ -17,6 +18,6 @@ namespace dx::factory {
 			0,
 			&shader, &error);
 
-		logger->CheckError(result, error, "Create PixelShader");
+		logger::CheckError(result, error, "Create PixelShader");
 	}
 }

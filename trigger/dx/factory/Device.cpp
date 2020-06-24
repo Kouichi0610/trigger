@@ -1,14 +1,15 @@
 #include "Device.h"
 #include <vector>
+#include "../../logger/Logger.h"
 
 namespace dx::factory {
 	ComPtr<ID3D12Device> Device::Get() const {
 		return device;
 	}
-	Device::Device(std::shared_ptr<logger::ILogger> logger) {
+	Device::Device() {
 		auto level = GetNewestLevel();
 		auto result = D3D12CreateDevice(nullptr, level, IID_PPV_ARGS(&device));
-		logger->CheckError(result, "CreateDevice");
+		logger::CheckError(result, "CreateDevice");
 	}
 
 	/// <summary>

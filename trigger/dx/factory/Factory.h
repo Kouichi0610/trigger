@@ -4,7 +4,6 @@
 #include <wrl.h>
 #include <vector>
 #include <memory>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -12,7 +11,7 @@ namespace dx::factory {
 	class Factory final {
 	public:
 		ComPtr<IDXGIFactory6> Get() const;
-		Factory(std::shared_ptr<logger::ILogger>);
+		Factory();
 
 		virtual ~Factory() = default;
 		Factory(const Factory&) = delete;

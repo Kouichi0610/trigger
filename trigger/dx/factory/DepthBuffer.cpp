@@ -1,13 +1,14 @@
 #include "DepthBuffer.h"
 #include "Device.h"
 #include "HeapDsv.h"
+#include "../../logger/Logger.h"
 
 namespace dx::factory {
 	ComPtr<ID3D12Resource1> DepthBuffer::Get() const {
 		return depthBuffer;
 	}
 
-	DepthBuffer::DepthBuffer(const Device& device, const HeapDsv& heapDsv, int width, int height, std::shared_ptr<logger::ILogger> logger) {
+	DepthBuffer::DepthBuffer(const Device& device, const HeapDsv& heapDsv, int width, int height) {
 		{
 			auto desc = D3D12_RESOURCE_DESC{};
 			auto prop = D3D12_HEAP_PROPERTIES{};
@@ -43,7 +44,7 @@ namespace dx::factory {
 				&clearValue,
 				IID_PPV_ARGS(&depthBuffer)
 			);
-			logger->CheckError(result, "Create DepthBuffer");
+			logger::CheckError(result, "Create DepthBuffer");
 		}
 
 		// デプスステンシルビュー作成

@@ -4,7 +4,6 @@
 #include <wrl.h>
 #include <vector>
 #include <memory>
-#include "../../logger/ILogger.h"
 
 namespace dx::factory {
 	using Microsoft::WRL::ComPtr;
@@ -18,7 +17,7 @@ namespace dx::factory {
 	class ComittedResource final {
 	public:
 		ComPtr<ID3D12Resource> Get() const;
-		ComittedResource(ComPtr<ID3D12Device>, UINT64, std::shared_ptr<logger::ILogger>);
+		ComittedResource(ComPtr<ID3D12Device>, UINT64);
 
 		virtual ~ComittedResource() = default;
 		ComittedResource(const ComittedResource&) = delete;

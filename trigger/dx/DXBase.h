@@ -4,27 +4,36 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
-#include "../logger/ILogger.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
 
-	class Polygon;
+	class CommandExecutor;
+	class ModelFactory;
+	class IModel;
+	class Texture;
 
 	class DXBase {
 	public:
 		void Initialize(HWND hwnd);
 		void Terminate();
 
+		std::unique_ptr<Texture> CreateTexture() const;
+		std::unique_ptr<ModelFactory> CreateModelFactory() const;
+		void Entry(std::shared_ptr<IModel>);
+
 		void Main();
 
-
-		DXBase(std::shared_ptr<logger::ILogger>);
+		DXBase();
 		virtual ~DXBase();
+
+		// TODO:çÌèúó\íË
+		ComPtr<ID3D12Device> GetDevice() const {
+			return device;
+		}
 	private:
 		ComPtr<IDXGIFactory6> factory;
 		ComPtr<ID3D12Device> device;
-		ComPtr<ID3D12CommandQueue> commandQueue;
 		std::vector<ComPtr<ID3D12CommandAllocator>> commandAllocators;
 		ComPtr<ID3D12GraphicsCommandList> commandList;
 
@@ -35,16 +44,14 @@ namespace dx {
 		ComPtr<ID3D12DescriptorHeap> heapDsv;
 		ComPtr<ID3D12Resource1> depthBuffer;
 
-		ComPtr<ID3D12Fence> fence;
-		int fenceValue;
-
 		D3D12_VIEWPORT viewport;
 		D3D12_RECT scissorrect;
 
-		std::shared_ptr<logger::ILogger> logger;
 		const UINT FrameBufferCount = 2;
 
-		std::shared_ptr<Polygon> polygon;
+		std::vector<std::shared_ptr<IModel>> models;
+
+		std::unique_ptr<CommandExecutor> commandExecutor;
 	};
 
 }

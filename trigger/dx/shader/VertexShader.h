@@ -5,18 +5,17 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "../../logger/ILogger.h"
 
-namespace dx::factory {
+namespace dx {
 	using Microsoft::WRL::ComPtr;
 
-	class PixelShader final {
+	class VertexShader final {
 	public:
 		ComPtr<ID3DBlob> Get() const;
-		PixelShader(LPCWSTR, std::string, std::shared_ptr<logger::ILogger>);
+		VertexShader(LPCWSTR, std::string);
 
-		virtual ~PixelShader() = default;
-		PixelShader(const PixelShader&) = delete;
+		virtual ~VertexShader() = default;
+		VertexShader(const VertexShader&) = delete;
 	private:
 		ComPtr<ID3DBlob> shader;
 	};

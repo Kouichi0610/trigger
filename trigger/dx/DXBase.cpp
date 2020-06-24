@@ -3,6 +3,8 @@
 #include <DirectXMath.h>
 #include <wrl.h>
 #include "DXBase.h"
+#include "CommandExecutor.h"
+
 #include "factory/Factory.h"
 #include "factory/Device.h"
 #include "factory/CommandQueue.h"
@@ -15,14 +17,16 @@
 #include "factory/RenderTargets.h"
 #include "factory/Fence.h"
 
-#include "Polygon.h"
+#include "renderer/IModel.h"
+#include "renderer/ModelFactory.h"
+#include "renderer/texture/Texture.h"
 
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 #pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"DirectXTex.lib")
 
 namespace dx {
-
 	void DXBase::Main() {
 		auto idx = swapChain->GetCurrentBackBufferIndex();
 		auto backBuffer = renderTargets[idx];
@@ -56,11 +60,12 @@ namespace dx {
 
 		}
 
-		// TODO:パイプラインステートの設定が先かもしれない
 		commandList->RSSetViewports(1, &viewport);
 		commandList->RSSetScissorRects(1, &scissorrect);
 
-		polygon->Render(commandList);
+		for (const auto model : models) {
+			model->Render(commandList);
+		}
 
 		// リソースバリアをもとに戻す
 		{
@@ -76,24 +81,9 @@ namespace dx {
 		// 命令受付終了
 		commandList->Close();
 
-		// コマンドリストを実行する
-		{
-			ID3D12CommandList* commands[] = { commandList.Get() };
-			commandQueue->ExecuteCommandLists(1, commands);
-		}
-		// 実行完了を待つ
-		{
-			fenceValue++;
-			commandQueue->Signal(fence.Get(), fenceValue);
 
-			if (fence->GetCompletedValue() != fenceValue) {
-				auto event = CreateEvent(nullptr, false, false, nullptr);
-				fence->SetEventOnCompletion(fenceValue, event);
-
-				WaitForSingleObject(event, INFINITE);
-				CloseHandle(event);
-			}
-		}
+		// CommandQueue コマンドリストの実行＆実行完了
+		commandExecutor->Execute(commandList);
 
 		// 実行完了。コマンドリストをクリア
 		commandAllocators[idx]->Reset();
@@ -105,25 +95,27 @@ namespace dx {
 	}
 
 	void DXBase::Initialize(HWND hwnd) {
-		auto factory = factory::Factory(logger);
-		auto device = factory::Device(logger);
-		auto commandQueue = factory::CommandQueue(device, logger);
-		auto swapchain = factory::SwapChain(hwnd, factory, commandQueue, FrameBufferCount, logger);
-		auto commandAllocator = factory::CommandAllocator(device, FrameBufferCount, logger);
-		auto commandList = factory::CommandList(device, commandAllocator, logger);
-		auto heapRtv = factory::HeapRtv(device, FrameBufferCount, logger);
-		auto renderTargets = factory::RenderTargets(device, swapchain, heapRtv, FrameBufferCount, logger);
-		auto heapDsv = factory::HeapDsv(device, logger);
+		// DirectXTex関連のために必要
+		auto result = CoInitializeEx(0, COINIT_MULTITHREADED);
+
+		auto factory = factory::Factory();
+		auto device = factory::Device();
+		auto commandQueue = factory::CommandQueue(device);
+		auto swapchain = factory::SwapChain(hwnd, factory, commandQueue, FrameBufferCount);
+		auto commandAllocator = factory::CommandAllocator(device, FrameBufferCount);
+		auto commandList = factory::CommandList(device, commandAllocator);
+		auto heapRtv = factory::HeapRtv(device, FrameBufferCount);
+		auto renderTargets = factory::RenderTargets(device, swapchain, heapRtv, FrameBufferCount);
+		auto heapDsv = factory::HeapDsv(device);
 
 		auto width = swapchain.Width();
 		auto height = swapchain.Height();
 
-		auto depthBuffer = factory::DepthBuffer(device, heapDsv, width, height, logger);
-		auto fence = factory::Fence(device, logger);
+		auto depthBuffer = factory::DepthBuffer(device, heapDsv, width, height);
+		auto fence = factory::Fence(device);
 
 		this->factory = factory.Get();
 		this->device = device.Get();
-		this->commandQueue = commandQueue.Get();
 		this->swapChain = swapchain.Get();
 		this->commandAllocators = commandAllocator.Get();
 		this->commandList = commandList.Get();
@@ -131,8 +123,8 @@ namespace dx {
 		this->renderTargets = renderTargets.Get();
 		this->heapDsv = heapDsv.Get();
 		this->depthBuffer = depthBuffer.Get();
-		this->fence = fence.Get();
-		this->fenceValue = fence.FenceValue();
+
+		commandExecutor = std::make_unique<CommandExecutor>(commandQueue.Get(), fence.Get());
 
 		viewport.Width = (float)width;
 		viewport.Height = (float)height;
@@ -145,11 +137,8 @@ namespace dx {
 		scissorrect.left = 0;
 		scissorrect.right = scissorrect.left + width;
 		scissorrect.bottom = scissorrect.top + height;
-
-		polygon = std::make_shared<Polygon>(this->device, logger);
 	}
 	void DXBase::Terminate() {
-		fence = nullptr;
 		depthBuffer = nullptr;
 		heapDsv = nullptr;
 		renderTargets.clear();
@@ -157,16 +146,25 @@ namespace dx {
 		commandList = nullptr;
 		commandAllocators.clear();
 		swapChain = nullptr;
-		commandQueue = nullptr;
 		device = nullptr;
 		factory = nullptr;
-		logger = nullptr;
 	}
 
-	DXBase::DXBase(std::shared_ptr<logger::ILogger> logger) {
-		this->logger = logger;
+	DXBase::DXBase() {
 	}
 	DXBase::~DXBase() {
 		Terminate();
+	}
+
+	void DXBase::Entry(std::shared_ptr<IModel> model) {
+		models.emplace_back(model);
+	}
+
+	std::unique_ptr<ModelFactory> DXBase::CreateModelFactory() const {
+		return std::make_unique<ModelFactory>(device);
+	}
+
+	std::unique_ptr<Texture> DXBase::CreateTexture() const {
+		return std::make_unique<Texture>(device, commandList, commandExecutor.get());
 	}
 }

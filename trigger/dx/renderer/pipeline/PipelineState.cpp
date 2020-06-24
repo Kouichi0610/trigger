@@ -1,24 +1,14 @@
 #include "PipelineState.h"
+#include "../../../logger/Logger.h"
 
-namespace dx::factory {
+namespace dx {
 	ComPtr<ID3D12PipelineState> PipelineState::Get() const {
 		return pipelineState;
 	}
-
-	PipelineState::PipelineState(
-		ComPtr<ID3D12Device> device,
-		ComPtr<ID3D12RootSignature> rootSignature,
-		ComPtr<ID3DBlob> vertexShader,
-		ComPtr<ID3DBlob> pixelShader,
-		std::shared_ptr<logger::ILogger> logger) {
-
+	PipelineState::PipelineState(ComPtr<ID3D12Device> device, ComPtr<ID3D12RootSignature> rootSignature, ComPtr<ID3DBlob> vs, ComPtr<ID3DBlob> ps) {
 		D3D12_INPUT_ELEMENT_DESC inputLayouts[] = {
-			{
-				"POSITION", 0,
-				DXGI_FORMAT_R32G32B32_FLOAT, 0,
-				D3D12_APPEND_ALIGNED_ELEMENT,
-				D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0,
-			},
+			{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },	// XYZ
+			//{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0},	// UV
 		};
 		// グラフィックスパイプラインの設定
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipeline = {};
@@ -26,10 +16,10 @@ namespace dx::factory {
 		pipeline.pRootSignature = rootSignature.Get();
 
 		// VS, PSの他にドメインシェーダ、ハルシェーダ、ジオメトリシェーダなど設定可能
-		pipeline.VS.pShaderBytecode = vertexShader->GetBufferPointer();
-		pipeline.VS.BytecodeLength = vertexShader->GetBufferSize();
-		pipeline.PS.pShaderBytecode = pixelShader->GetBufferPointer();
-		pipeline.PS.BytecodeLength = pixelShader->GetBufferSize();
+		pipeline.VS.pShaderBytecode = vs->GetBufferPointer();
+		pipeline.VS.BytecodeLength = vs->GetBufferSize();
+		pipeline.PS.pShaderBytecode = ps->GetBufferPointer();
+		pipeline.PS.BytecodeLength = ps->GetBufferSize();
 
 		// サンプルマスク、ラスタライザーステート
 		pipeline.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
@@ -81,7 +71,6 @@ namespace dx::factory {
 		// グラフィックスパイプラインステートオブジェクトの作成
 		auto result = device->CreateGraphicsPipelineState(
 			&pipeline, IID_PPV_ARGS(&pipelineState));
-
-		logger->CheckError(result, "Create PipelineState");
+		logger::CheckError(result, "Create PipelineState");
 	}
 }

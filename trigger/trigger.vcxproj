@@ -89,10 +89,12 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)DirectXTex\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -104,12 +106,14 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)DirectXTex\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -119,10 +123,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)DirectXTex\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -134,15 +140,18 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)DirectXTex\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dx\CommandExecutor.cpp" />
     <ClCompile Include="dx\DXBase.cpp" />
     <ClCompile Include="dx\factory\CommandAllocator.cpp" />
     <ClCompile Include="dx\factory\CommandList.cpp" />
@@ -152,20 +161,27 @@
     <ClCompile Include="dx\factory\Factory.cpp" />
     <ClCompile Include="dx\factory\Fence.cpp" />
     <ClCompile Include="dx\factory\HeapDsv.cpp" />
-    <ClCompile Include="dx\factory\PipelineState.cpp" />
-    <ClCompile Include="dx\factory\PixelShader.cpp" />
+    <ClCompile Include="dx\factory\HeapSrv.cpp" />
     <ClCompile Include="dx\factory\RenderTargets.cpp" />
     <ClCompile Include="dx\factory\HeapRtv.cpp" />
-    <ClCompile Include="dx\factory\RootSignature.cpp" />
-    <ClCompile Include="dx\factory\VertexShader.cpp" />
     <ClCompile Include="dx\factory\SwapChain.cpp" />
     <ClCompile Include="dx\factory\ComittedResource.cpp" />
-    <ClCompile Include="dx\Polygon.cpp" />
-    <ClCompile Include="logger\components\Logger.cpp" />
-    <ClCompile Include="logger\LoggerFactory.cpp" />
+    <ClCompile Include="dx\renderer\components\IndexBuffer.cpp" />
+    <ClCompile Include="dx\renderer\components\VertexBuffer.cpp" />
+    <ClCompile Include="dx\renderer\ModelFactory.cpp" />
+    <ClCompile Include="dx\renderer\pipeline\PipelineState.cpp" />
+    <ClCompile Include="dx\renderer\Polygon.cpp" />
+    <ClCompile Include="dx\renderer\rootsignature\RootSignature.cpp" />
+    <ClCompile Include="dx\renderer\TexturePolygon.cpp" />
+    <ClCompile Include="dx\renderer\texture\Texture.cpp" />
+    <ClCompile Include="dx\renderer\texture\TextureBuffer.cpp" />
+    <ClCompile Include="dx\shader\PixelShader.cpp" />
+    <ClCompile Include="dx\shader\VertexShader.cpp" />
+    <ClCompile Include="logger\Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dx\CommandExecutor.h" />
     <ClInclude Include="dx\DXBase.h" />
     <ClInclude Include="dx\factory\CommandAllocator.h" />
     <ClInclude Include="dx\factory\CommandList.h" />
@@ -175,18 +191,26 @@
     <ClInclude Include="dx\factory\Factory.h" />
     <ClInclude Include="dx\factory\Fence.h" />
     <ClInclude Include="dx\factory\HeapDsv.h" />
-    <ClInclude Include="dx\factory\PipelineState.h" />
-    <ClInclude Include="dx\factory\PixelShader.h" />
+    <ClInclude Include="dx\factory\HeapSrv.h" />
     <ClInclude Include="dx\factory\RenderTargets.h" />
     <ClInclude Include="dx\factory\HeapRtv.h" />
-    <ClInclude Include="dx\factory\RootSignature.h" />
-    <ClInclude Include="dx\factory\VertexShader.h" />
     <ClInclude Include="dx\factory\SwapChain.h" />
     <ClInclude Include="dx\factory\ComittedResource.h" />
-    <ClInclude Include="dx\Polygon.h" />
-    <ClInclude Include="logger\components\Logger.h" />
-    <ClInclude Include="logger\ILogger.h" />
-    <ClInclude Include="logger\LoggerFactory.h" />
+    <ClInclude Include="dx\renderer\components\IndexBuffer.h" />
+    <ClInclude Include="dx\renderer\components\VertexBuffer.h" />
+    <ClInclude Include="dx\renderer\IModel.h" />
+    <ClInclude Include="dx\renderer\ModelFactory.h" />
+    <ClInclude Include="dx\renderer\pipeline\PipelineState.h" />
+    <ClInclude Include="dx\renderer\Polygon.h" />
+    <ClInclude Include="dx\renderer\rootsignature\RootSignature.h" />
+    <ClInclude Include="dx\renderer\TexturePolygon.h" />
+    <ClInclude Include="dx\renderer\texture\ITexture.h" />
+    <ClInclude Include="dx\renderer\texture\Texture.h" />
+    <ClInclude Include="dx\renderer\texture\TextureBuffer.h" />
+    <ClInclude Include="dx\renderer\Vertex.h" />
+    <ClInclude Include="dx\shader\PixelShader.h" />
+    <ClInclude Include="dx\shader\VertexShader.h" />
+    <ClInclude Include="logger\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicPixelShader.hlsl">
@@ -217,6 +241,37 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+    <FxCompile Include="SimplePixelShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BasicPS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BasicPS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicPS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BasicPS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="SimpleVertexShader.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BasicVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BasicVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BasicVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicShaderHeader.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

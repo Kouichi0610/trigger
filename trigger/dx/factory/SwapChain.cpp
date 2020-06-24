@@ -2,6 +2,7 @@
 #include "Device.h"
 #include "Factory.h"
 #include "CommandQueue.h"
+#include "../../logger/Logger.h"
 
 namespace dx::factory {
 	int SwapChain::Width() const {
@@ -13,7 +14,7 @@ namespace dx::factory {
 	ComPtr<IDXGISwapChain4> SwapChain::Get() const {
 		return swapchain;
 	}
-	SwapChain::SwapChain(HWND hwnd, const Factory& factory, const CommandQueue& commandQueue, UINT frameBufferCount, std::shared_ptr<logger::ILogger> logger) {
+	SwapChain::SwapChain(HWND hwnd, const Factory& factory, const CommandQueue& commandQueue, UINT frameBufferCount) {
 		// ウィンドウハンドルからサイズ取得s
 		RECT r;
 		GetClientRect(hwnd, &r);
@@ -45,7 +46,7 @@ namespace dx::factory {
 			nullptr,
 			&sc
 		);
-		logger->CheckError(result, "CreateSwapChan");
+		logger::CheckError(result, "CreateSwapChan");
 		// SwapChain4に変換
 		sc.As(&swapchain);
 	}
