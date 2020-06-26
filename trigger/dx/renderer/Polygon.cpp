@@ -1,6 +1,6 @@
 #include "Polygon.h"
-#include "components/VertexBuffer.h"
-#include "components/IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 #include "rootsignature/RootSignature.h"
 #include "pipeline/PipelineState.h"
 

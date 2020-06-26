@@ -1,10 +1,13 @@
-#include "IModel.h"
+#include <memory>
+#include "renderer/IModel.h"
 #include "ModelFactory.h"
-#include "../shader/VertexShader.h"
-#include "../shader/PixelShader.h"
-#include "../renderer/texture/ITexture.h"
-#include "Polygon.h"
-#include "TexturePolygon.h"
+#include "shader/VertexShader.h"
+#include "shader/PixelShader.h"
+#include "renderer/texture/ITexture.h"
+#include "renderer/Polygon.h"
+#include "renderer/TexturePolygon.h"
+#include "renderer/IndexBuffer.h"
+#include "renderer/VertexBuffer.h"
 
 namespace dx {
 

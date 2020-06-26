@@ -166,15 +166,17 @@
     <ClCompile Include="dx\factory\HeapRtv.cpp" />
     <ClCompile Include="dx\factory\SwapChain.cpp" />
     <ClCompile Include="dx\factory\ComittedResource.cpp" />
-    <ClCompile Include="dx\renderer\components\IndexBuffer.cpp" />
-    <ClCompile Include="dx\renderer\components\VertexBuffer.cpp" />
-    <ClCompile Include="dx\renderer\ModelFactory.cpp" />
+    <ClCompile Include="dx\ModelFactory.cpp" />
+    <ClCompile Include="dx\model\pmd.cpp" />
+    <ClCompile Include="dx\renderer\IndexBuffer.cpp" />
     <ClCompile Include="dx\renderer\pipeline\PipelineState.cpp" />
     <ClCompile Include="dx\renderer\Polygon.cpp" />
     <ClCompile Include="dx\renderer\rootsignature\RootSignature.cpp" />
     <ClCompile Include="dx\renderer\TexturePolygon.cpp" />
     <ClCompile Include="dx\renderer\texture\Texture.cpp" />
     <ClCompile Include="dx\renderer\texture\TextureBuffer.cpp" />
+    <ClCompile Include="dx\renderer\VertexBuffer.cpp" />
+    <ClCompile Include="dx\renderer\Vertices.cpp" />
     <ClCompile Include="dx\shader\PixelShader.cpp" />
     <ClCompile Include="dx\shader\VertexShader.cpp" />
     <ClCompile Include="logger\Logger.cpp" />
@@ -182,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dx\CommandExecutor.h" />
+    <ClInclude Include="dx\d3dx12.h" />
     <ClInclude Include="dx\DXBase.h" />
     <ClInclude Include="dx\factory\CommandAllocator.h" />
     <ClInclude Include="dx\factory\CommandList.h" />
@@ -196,10 +199,10 @@
     <ClInclude Include="dx\factory\HeapRtv.h" />
     <ClInclude Include="dx\factory\SwapChain.h" />
     <ClInclude Include="dx\factory\ComittedResource.h" />
-    <ClInclude Include="dx\renderer\components\IndexBuffer.h" />
-    <ClInclude Include="dx\renderer\components\VertexBuffer.h" />
+    <ClInclude Include="dx\ModelFactory.h" />
+    <ClInclude Include="dx\model\pmd.h" />
     <ClInclude Include="dx\renderer\IModel.h" />
-    <ClInclude Include="dx\renderer\ModelFactory.h" />
+    <ClInclude Include="dx\renderer\IndexBuffer.h" />
     <ClInclude Include="dx\renderer\pipeline\PipelineState.h" />
     <ClInclude Include="dx\renderer\Polygon.h" />
     <ClInclude Include="dx\renderer\rootsignature\RootSignature.h" />
@@ -208,6 +211,8 @@
     <ClInclude Include="dx\renderer\texture\Texture.h" />
     <ClInclude Include="dx\renderer\texture\TextureBuffer.h" />
     <ClInclude Include="dx\renderer\Vertex.h" />
+    <ClInclude Include="dx\renderer\VertexBuffer.h" />
+    <ClInclude Include="dx\renderer\Vertices.h" />
     <ClInclude Include="dx\shader\PixelShader.h" />
     <ClInclude Include="dx\shader\VertexShader.h" />
     <ClInclude Include="logger\Logger.h" />

@@ -17,8 +17,8 @@
 #include "factory/RenderTargets.h"
 #include "factory/Fence.h"
 
+#include "ModelFactory.h"
 #include "renderer/IModel.h"
-#include "renderer/ModelFactory.h"
 #include "renderer/texture/Texture.h"
 
 #pragma comment(lib,"d3d12.lib")

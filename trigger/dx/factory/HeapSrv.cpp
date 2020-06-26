@@ -6,12 +6,13 @@ namespace dx::factory {
 	ComPtr<ID3D12DescriptorHeap> HeapSrv::Get() const {
 		return heapSrv;
 	}
-	HeapSrv::HeapSrv(ComPtr<ID3D12Device> device) {
+	HeapSrv::HeapSrv(ComPtr<ID3D12Device> device, int descriptorCount) {
 		auto desc = D3D12_DESCRIPTOR_HEAP_DESC{};
+		// UAV 演算シェーダに使う
 		// ConstantBufferView, ShaderResourceView, UnorderedAccessView
 		desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 		desc.NodeMask = 0;	// GPUが複数ある場合、識別するための
-		desc.NumDescriptors = 1;
+		desc.NumDescriptors = descriptorCount;
 		// シェーダから見えるように
 		desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 

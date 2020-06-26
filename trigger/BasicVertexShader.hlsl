@@ -1,5 +1,10 @@
 #include "BasicShaderHeader.hlsli"
 
+//変換をまとめた構造体
+cbuffer cbuff0 : register(b0) {
+	matrix mat;//変換行列
+};
+
 /*
 	1頂点ごとに呼ばれる
 	pos 頂点データ
@@ -11,8 +16,8 @@
 	3.シェーダーモデルをShader Model5.0以降に変更する
 */
 Output BasicVS(float4 pos : POSITION, float2 uv: TEXCOORD) {
-	Output output;
-	output.svpos = pos;
+	Output output;	// ピクセルシェーダへ渡す
+	output.svpos = mul(mat, pos);
 	output.uv = uv;
 	return output;
 }

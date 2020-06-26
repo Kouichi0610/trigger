@@ -9,8 +9,8 @@
 #include "IModel.h"
 #include "Vertex.h"
 
-#include "components/VertexBuffer.h"
-#include "components/IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 using namespace DirectX;
 

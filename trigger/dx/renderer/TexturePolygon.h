@@ -9,8 +9,8 @@
 #include "IModel.h"
 #include "Vertex.h"
 
-#include "components/VertexBuffer.h"
-#include "components/IndexBuffer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 using namespace DirectX;
 
@@ -49,5 +49,14 @@ namespace dx {
 
 		ComPtr<ID3D12RootSignature> createRootSignature(ComPtr<ID3D12Device>) const;
 		ComPtr<ID3D12PipelineState> createPipelineState(ComPtr<ID3D12Device> device, ComPtr<ID3D12RootSignature> rootSignature) const;
+
+		// TODO:íuÇ´èÍ
+		ComPtr<ID3D12Resource> createMatrixConstBuffer(ComPtr<ID3D12Device>) const;
+		ComPtr<ID3D12Resource> constBuff;
+
+		// TODO:RootDescriptorä÷òA
+		UINT descriptorHandleIncrementSize;
+
+		XMMATRIX* map;
 	};
 }
