@@ -1,5 +1,5 @@
 #include "IndexBuffer.h"
-#include "../../../logger/Logger.h"
+#include "../../logger/Logger.h"
 
 namespace dx {
 	IndexBuffer::IndexBuffer(ComPtr<ID3D12Device> device, std::vector<unsigned short> indices) {

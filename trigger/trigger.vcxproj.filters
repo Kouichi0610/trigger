@@ -44,12 +44,6 @@
     <ClCompile Include="dx\factory\HeapSrv.cpp">
       <Filter>dx\factory</Filter>
     </ClCompile>
-    <ClCompile Include="dx\renderer\components\VertexBuffer.cpp">
-      <Filter>dx\renderer\comonents</Filter>
-    </ClCompile>
-    <ClCompile Include="dx\renderer\components\IndexBuffer.cpp">
-      <Filter>dx\renderer\comonents</Filter>
-    </ClCompile>
     <ClCompile Include="dx\renderer\Polygon.cpp">
       <Filter>dx\renderer</Filter>
     </ClCompile>
@@ -64,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="dx\renderer\pipeline\PipelineState.cpp">
       <Filter>dx\renderer\pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="dx\renderer\ModelFactory.cpp">
-      <Filter>dx\renderer</Filter>
     </ClCompile>
     <ClCompile Include="dx\renderer\TexturePolygon.cpp">
       <Filter>dx\renderer</Filter>
@@ -83,6 +74,21 @@
     <ClCompile Include="dx\renderer\texture\TextureBuffer.cpp">
       <Filter>dx\renderer\texture</Filter>
     </ClCompile>
+    <ClCompile Include="dx\renderer\IndexBuffer.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\VertexBuffer.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\ModelFactory.cpp">
+      <Filter>dx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\renderer\Vertices.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmd.cpp">
+      <Filter>dx\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logger">
@@ -97,9 +103,6 @@
     <Filter Include="dx\renderer">
       <UniqueIdentifier>{94634b28-dc26-47e4-ade8-e08cc8f18f7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="dx\renderer\comonents">
-      <UniqueIdentifier>{0f0a775f-541b-4ead-b021-13705b4475c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="dx\shader">
       <UniqueIdentifier>{cef55273-4583-4883-a430-7e31da2d1846}</UniqueIdentifier>
     </Filter>
@@ -111,6 +114,9 @@
     </Filter>
     <Filter Include="dx\renderer\texture">
       <UniqueIdentifier>{d65b51b3-55aa-45ee-a0b7-3c7ebde40fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\model">
+      <UniqueIdentifier>{b9f2e8d3-590f-4e83-b4aa-71d61de2f8b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -156,15 +162,6 @@
     <ClInclude Include="dx\factory\HeapSrv.h">
       <Filter>dx\factory</Filter>
     </ClInclude>
-    <ClInclude Include="dx\renderer\IModel.h">
-      <Filter>dx\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="dx\renderer\components\VertexBuffer.h">
-      <Filter>dx\renderer\comonents</Filter>
-    </ClInclude>
-    <ClInclude Include="dx\renderer\components\IndexBuffer.h">
-      <Filter>dx\renderer\comonents</Filter>
-    </ClInclude>
     <ClInclude Include="dx\renderer\Polygon.h">
       <Filter>dx\renderer</Filter>
     </ClInclude>
@@ -179,9 +176,6 @@
     </ClInclude>
     <ClInclude Include="dx\renderer\pipeline\PipelineState.h">
       <Filter>dx\renderer\pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="dx\renderer\ModelFactory.h">
-      <Filter>dx\renderer</Filter>
     </ClInclude>
     <ClInclude Include="dx\renderer\Vertex.h">
       <Filter>dx\renderer</Filter>
@@ -203,6 +197,27 @@
     </ClInclude>
     <ClInclude Include="dx\renderer\texture\TextureBuffer.h">
       <Filter>dx\renderer\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\d3dx12.h">
+      <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\IndexBuffer.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\VertexBuffer.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\ModelFactory.h">
+      <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\IModel.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\Vertices.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmd.h">
+      <Filter>dx\model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

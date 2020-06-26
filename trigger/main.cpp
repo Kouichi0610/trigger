@@ -1,16 +1,18 @@
 #include <Windows.h>
 
 #include "dx/DXBase.h"
-
-#include "dx/renderer/ModelFactory.h"
+#include "dx/ModelFactory.h"
 #include "dx/renderer/Vertex.h"
 #include "dx/renderer/texture/ITexture.h"
 #include "dx/renderer/texture/Texture.h"
 #include "dx/renderer/texture/TextureBuffer.h"
 
-
 #include "dx/shader/VertexShader.h"
 #include "dx/shader/PixelShader.h"
+
+#include "dx/model/pmd.h"
+
+#include <DirectXMath.h>
 
 LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -79,10 +81,47 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
 	{
 		std::vector<dx::TextureVertex> vertices = {
+#if false
 			{{-0.4f,-0.7f, 0.0f}, {0.0f, 1.0f}},
 			{{-0.4f, 0.7f, 0.0f}, {0.0f, 0.0f}},
 			{{ 0.4f,-0.7f, 0.0f}, {1.0f, 1.0f}},
 			{{ 0.4f, 0.7f, 0.0f}, {1.0f, 0.0f}},
+#endif
+#if false
+			{{  0.0f,720.0f, 0.0f}, {0.0f, 1.0f}},
+			{{  0.0f,  0.0f, 0.0f}, {0.0f, 0.0f}},
+			{{720.0f,720.0f, 0.0f}, {1.0f, 1.0f}},
+			{{720.0f,  0.0f, 0.0f}, {1.0f, 0.0f}},
+#endif
+			{{-1.0f,-1.0f, 0.0f}, {0.0f, 1.0f}},
+			{{-1.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
+			{{ 1.0f,-1.0f, 0.0f}, {1.0f, 1.0f}},
+			{{ 1.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
+		};
+		std::vector<unsigned short> indices = { 0,1,2, 2,1,3 };
+
+		std::vector<dx::TexRGBA> texturedata(256 * 256);
+		for (auto& t : texturedata) {
+			t.R = rand() % 256;
+			t.G = rand() % 256;
+			t.B = rand() % 256;
+			t.A = 255;
+		}
+		auto vs = std::make_shared <dx::VertexShader>(L"BasicVertexShader.hlsl", "BasicVS");
+		auto ps = std::make_shared <dx::PixelShader>(L"BasicPixelShader.hlsl", "BasicPS");
+
+		auto polygon = modelFactory->Create(vertices, indices, texture.get(), vs, ps);
+		dx.Entry(polygon);
+	}
+
+#if false
+	{
+		// テクスチャの使いまわし可能
+		std::vector<dx::TextureVertex> vertices = {
+			{{-0.4f+1,-0.6f-1, 0.0f}, {0.0f, 1.0f}},
+			{{-0.4f+1, 0.6f, 0.0f}, {0.0f, 0.0f}},
+			{{ 0.4f+1,-0.6f, 0.0f}, {1.0f, 1.0f}},
+			{{ 0.4f+1, 0.6f+0.5f, 0.0f}, {1.0f, 0.0f}},
 
 		};
 		std::vector<unsigned short> indices = { 0,1,2, 2,1,3 };
@@ -100,6 +139,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		auto polygon = modelFactory->Create(vertices, indices, texture.get(), vs, ps);
 		dx.Entry(polygon);
 	}
+#endif
 
 	ShowWindow(hwnd, SW_SHOW);
 
@@ -119,3 +159,4 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	UnregisterClass(w.lpszClassName, w.hInstance);
 	return 0;
 }
+

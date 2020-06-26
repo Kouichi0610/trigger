@@ -3,17 +3,20 @@
 #include <memory>
 #include <vector>
 #include <d3d12.h>
-#include "Vertex.h"
+#include "renderer/Vertex.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
 
+	class IModel;
+	class ITexture;
+	class VertexBuffer;
+	class IndexBuffer;
 	class VertexShader;
 	class PixelShader;
-	class ITexture;
 
 	/// <summary>
-	/// IModel生成クラス
+	/// IModelと関連するクラスを作成するためのファクトリ
 	/// </summary>
 	class ModelFactory final {
 	public:

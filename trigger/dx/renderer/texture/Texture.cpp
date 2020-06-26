@@ -59,7 +59,6 @@ namespace dx {
 			desc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
 			desc.Width = pitch * img->height;
 			desc.Height = 1;
-			// TODO:TextureBuffer
 			desc.DepthOrArraySize = 1;
 			desc.MipLevels = 1;
 			desc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;

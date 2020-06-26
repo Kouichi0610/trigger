@@ -4,7 +4,7 @@
 #include <wrl.h>
 #include <memory>
 #include <vector>
-#include "../../../logger/Logger.h"
+#include "../../logger/Logger.h"
 
 namespace dx {
 	using Microsoft::WRL::ComPtr;
