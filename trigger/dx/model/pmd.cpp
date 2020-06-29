@@ -34,24 +34,24 @@ namespace dx {
 
 
 		// プリミティブトポロジ(頂点の描画方法)
-		commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
+		commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		commandList->IASetVertexBuffers(0, 1, &vertexView);	// スロット番号、頂点バッファビューの数、vbView
 		commandList->IASetIndexBuffer(&indexView);
 
-		//commandList->DrawIndexedInstanced(indexCount, 1, 0, 0, 0);
-		commandList->DrawInstanced(vertexCount, 1, 0, 0);
+		commandList->DrawIndexedInstanced(indexCount, 1, 0, 0, 0);
+		//commandList->DrawInstanced(vertexCount, 1, 0, 0);
 
 		{	// TODO:外部に移動
 			static float angle = 0;
-			static float cameraY = 0;
-			static float cameraZ = -20;
+			static float cameraY = 8;
+			static float cameraZ = -15;
 			//auto local = XMMatrixIdentity();
 			//matrix = XMMatrixScaling(2, 2, 2);
 
 			auto world = XMMatrixRotationY(angle);
 
 			auto eye = XMFLOAT3(0, cameraY, cameraZ);
-			auto target = XMFLOAT3(0, 0, 0);
+			auto target = XMFLOAT3(0, cameraY, 0);
 			auto up = XMFLOAT3(0, 1, 0);
 			auto view = XMMatrixLookAtLH(XMLoadFloat3(&eye), XMLoadFloat3(&target), XMLoadFloat3(&up));
 
@@ -198,7 +198,7 @@ namespace dx {
 
 			indexView.BufferLocation = indexBuffer->GetGPUVirtualAddress();
 			indexView.Format = DXGI_FORMAT_R16_UINT;
-			indexView.SizeInBytes = sizeof(indices);
+			indexView.SizeInBytes = indices.size() * sizeof(indices[0]);
 		}
 	}
 
@@ -390,6 +390,13 @@ namespace dx {
 		// アンチエイリアスのためのサンプル設定
 		pipeline.SampleDesc.Count = 1;
 		pipeline.SampleDesc.Quality = 0;
+
+		// 
+		pipeline.DepthStencilState.DepthEnable = true;
+		pipeline.DepthStencilState.DepthWriteMask = D3D12_DEPTH_WRITE_MASK_ALL;
+		pipeline.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_LESS; // 小さいほうを採用
+		// 
+		pipeline.DSVFormat = DXGI_FORMAT_D32_FLOAT;
 
 		// グラフィックスパイプラインステートオブジェクトの作成
 		auto result = device->CreateGraphicsPipelineState(

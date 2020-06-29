@@ -19,7 +19,7 @@ namespace dx::factory {
 			desc.Height = height;
 			desc.DepthOrArraySize = 1;
 			desc.MipLevels = 0;
-			desc.Format = DXGI_FORMAT_R32_TYPELESS;
+			desc.Format = DXGI_FORMAT_D32_FLOAT;
 			desc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 			desc.SampleDesc.Count = 1;
 			desc.SampleDesc.Quality = 0;

@@ -25,5 +25,7 @@ Output BasicVS(
 	Output output;	// ピクセルシェーダへ渡す
 	output.svpos = mul(mat, pos);
 	output.uv = uv;
+	//output.normal = normal;
+	output.normal = mul(mat, normal);
 	return output;
 }

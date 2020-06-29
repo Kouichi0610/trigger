@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/trigger/Resource/PMX仕様.txt
+/trigger/Resource/Alicia_solid.pmx
+/trigger/Resource/Alicia_solid.pmd

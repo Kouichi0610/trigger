@@ -3,4 +3,5 @@
 struct Output {
 	float4 svpos : SV_POSITION;	// í∏ì_ç¿ïW
 	float2 uv : TEXCOORD;	// uv
+	float4 normal : NORMAL;
 };

@@ -46,7 +46,8 @@ namespace dx {
 		auto handle = heapRtv->GetCPUDescriptorHandleForHeapStart();
 		auto size = device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 		handle.ptr += idx * size;
-		commandList->OMSetRenderTargets(1, &handle, true, nullptr);
+		auto dsvHandle = heapDsv->GetCPUDescriptorHandleForHeapStart();
+		commandList->OMSetRenderTargets(1, &handle, true, &dsvHandle);
 
 		// 画面をクリア
 		{
@@ -57,7 +58,7 @@ namespace dx {
 		// デプスバッファのクリア
 		{
 			auto handle = heapDsv->GetCPUDescriptorHandleForHeapStart();
-			commandList->ClearDepthStencilView(handle, D3D12_CLEAR_FLAG_DEPTH, 1.0F, 0, 0, nullptr);
+			commandList->ClearDepthStencilView(handle, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 		}
 
