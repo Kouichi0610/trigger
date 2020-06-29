@@ -71,6 +71,6 @@ namespace dx {
 		// グラフィックスパイプラインステートオブジェクトの作成
 		auto result = device->CreateGraphicsPipelineState(
 			&pipeline, IID_PPV_ARGS(&pipelineState));
-		logger::CheckError(result, "Create PipelineState");
+		logger::CheckError(result, "Create PipelineState a");
 	}
 }

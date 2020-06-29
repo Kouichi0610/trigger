@@ -89,6 +89,63 @@
     <ClCompile Include="dx\model\pmd.cpp">
       <Filter>dx\model</Filter>
     </ClCompile>
+    <ClCompile Include="dx\renderer\Model.cpp">
+      <Filter>dx\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx.cpp">
+      <Filter>dx\model</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\Header.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\VertexData.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\IWeight.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxName.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxMaterial.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxVariable.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxBone.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxMorf.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\morf\BoneMorf.cpp">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\morf\GroupMorf.cpp">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\morf\MaterialMorf.cpp">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\morf\MorfFactory.cpp">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\morf\UVMorf.cpp">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\morf\VertexMorf.cpp">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxDisplayFrame.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxJoint.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
+    <ClCompile Include="dx\model\pmx\PmxRigidBody.cpp">
+      <Filter>dx\model\pmx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logger">
@@ -117,6 +174,12 @@
     </Filter>
     <Filter Include="dx\model">
       <UniqueIdentifier>{b9f2e8d3-590f-4e83-b4aa-71d61de2f8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\model\pmx">
+      <UniqueIdentifier>{d496db3a-cdb1-4123-af83-c216084f9642}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx\model\pmx\morf">
+      <UniqueIdentifier>{13be2132-6a7d-442a-bb7c-86a96137bb18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +281,69 @@
     </ClInclude>
     <ClInclude Include="dx\model\pmd.h">
       <Filter>dx\model</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\IModelData.h">
+      <Filter>dx\model</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\renderer\Model.h">
+      <Filter>dx\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx.h">
+      <Filter>dx\model</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\Header.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\VertexData.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\IWeight.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxName.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxMaterial.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxVariable.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxBone.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxMorf.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\BoneMorf.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\GroupMorf.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\IMorfData.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\MaterialMorf.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\MorfFactory.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\UVMorf.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\morf\VertexMorf.h">
+      <Filter>dx\model\pmx\morf</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxDisplayFrame.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxJoint.h">
+      <Filter>dx\model\pmx</Filter>
+    </ClInclude>
+    <ClInclude Include="dx\model\pmx\PmxRigidBody.h">
+      <Filter>dx\model\pmx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

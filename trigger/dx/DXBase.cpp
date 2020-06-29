@@ -50,7 +50,8 @@ namespace dx {
 
 		// 画面をクリア
 		{
-			float color[] = { 0.3f, 0.0f, 0.2f, 1.0f };
+			//float color[] = { 0.3f, 0.0f, 0.2f, 1.0f };
+			float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 			commandList->ClearRenderTargetView(handle, color, 0, nullptr);
 		}
 		// デプスバッファのクリア

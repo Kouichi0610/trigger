@@ -27,6 +27,9 @@ namespace dx {
 		DXBase();
 		virtual ~DXBase();
 
+		// ‰¼
+		ComPtr<ID3D12Device> GetDevice() const { return device; }
+
 	private:
 		ComPtr<IDXGIFactory6> factory;
 		ComPtr<ID3D12Device> device;

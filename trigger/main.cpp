@@ -6,11 +6,13 @@
 #include "dx/renderer/texture/ITexture.h"
 #include "dx/renderer/texture/Texture.h"
 #include "dx/renderer/texture/TextureBuffer.h"
+#include "dx/renderer/Model.h"
 
 #include "dx/shader/VertexShader.h"
 #include "dx/shader/PixelShader.h"
 
 #include "dx/model/pmd.h"
+#include "dx/model/pmx.h"
 
 #include <DirectXMath.h>
 
@@ -62,8 +64,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	texture->Load(L"./Resource/test.png");
 	//auto textureBuffer = dx::TextureBuffer(dx.GetDevice(), L"./Resource/test.png");
 
+	auto vs = std::make_shared <dx::VertexShader>(L"BasicVertexShader.hlsl", "BasicVS");
+	auto ps = std::make_shared <dx::PixelShader>(L"BasicPixelShader.hlsl", "BasicPS");
 
 	auto modelFactory = dx.CreateModelFactory();
+
+#if false
 	{
 		auto vs = std::make_shared <dx::VertexShader>(L"SimpleVertexShader.hlsl", "BasicVS");
 		auto ps = std::make_shared <dx::PixelShader>(L"SimplePixelShader.hlsl", "BasicPS");
@@ -79,6 +85,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		auto polygon = modelFactory->Create(vertices, indices, vs, ps);
 		dx.Entry(polygon);
 	}
+#endif
 	{
 		std::vector<dx::TextureVertex> vertices = {
 #if false
@@ -107,12 +114,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			t.B = rand() % 256;
 			t.A = 255;
 		}
-		auto vs = std::make_shared <dx::VertexShader>(L"BasicVertexShader.hlsl", "BasicVS");
-		auto ps = std::make_shared <dx::PixelShader>(L"BasicPixelShader.hlsl", "BasicPS");
 
 		auto polygon = modelFactory->Create(vertices, indices, texture.get(), vs, ps);
-		dx.Entry(polygon);
+		//dx.Entry(polygon);
 	}
+
+	auto pmd = std::make_shared<dx::Pmd>(dx.GetDevice(), "resource/Alicia_solid.pmd", texture.get(), vs, ps);
+	auto model = std::make_shared<dx::Model>(pmd);
+	dx.Entry(model);
+
+	//auto pmx = std::make_shared<dx::Pmx>(dx.GetDevice(), "resource/Alicia_solid.pmx", texture.get(), vs, ps);
 
 #if false
 	{

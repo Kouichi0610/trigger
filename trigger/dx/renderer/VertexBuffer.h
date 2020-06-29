@@ -15,8 +15,8 @@ namespace dx {
 		VertexBuffer(ComPtr<ID3D12Device>, std::vector<T> vertices);
 
 		D3D12_VERTEX_BUFFER_VIEW GetView() const;
-		ComPtr<ID3D12Resource> GetVertexBuffer() const;
-		int VertexCount() const;
+		//ComPtr<ID3D12Resource> GetVertexBuffer() const;
+		//int VertexCount() const;
 
 		virtual ~VertexBuffer() = default;
 		VertexBuffer(const VertexBuffer&) = delete;
